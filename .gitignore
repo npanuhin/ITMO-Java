@@ -1,0 +1,6 @@
+# Cache
+__pycache__/
+*.class
+
+# Tests
+FOCtests/
