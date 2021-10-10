@@ -1,6 +1,6 @@
-<h1 align="center">Домашние задания к курсу<br>«Введение в программирование»</h1>
+<h1 align="center">Решения домашних заданий к курсу<br>«Введение в программирование»</h1>
 
-> Тесты и модификации к домашним заданиям: [kgeorgiy/prog-intro-2021](https://github.com/kgeorgiy/prog-intro-2021)
+> Тесты и модификации к домашним заданиям: [kgeorgiy.info/prog-intro-2021](https://www.kgeorgiy.info/git/geo/prog-intro-2021/) или зеркало [kgeorgiy/prog-intro-2021](https://github.com/kgeorgiy/prog-intro-2021)
 
 ### Оглавление:
 - [Домашнее задание 5. Свой сканнер](#домашнее-задание-5-свой-сканер)
