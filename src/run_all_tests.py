@@ -38,7 +38,7 @@ def main():
             folder = mkpath(HOME_PATH, folder)
 
             for file in sorted(os.listdir(folder)):
-                if os.path.isfile(mkpath(folder, file)) and os.path.splitext(file)[0].endswith("Test"):
+                if os.path.isfile(mkpath(folder, file)) and os.path.splitext(file)[1] == ".cmd" and os.path.splitext(file)[0].endswith("Test"):
                     file = mkpath(folder, file)
 
                     os.chdir(folder)
