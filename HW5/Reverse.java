@@ -13,7 +13,7 @@ public class Reverse {
 
         // Input:
         try {
-            AbcScanner fileScanner = new AbcScanner(System.in);
+            Scanner fileScanner = new Scanner(System.in);
 
             try {
                 while (fileScanner.canRead()) {

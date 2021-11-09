@@ -1,5 +1,6 @@
 @echo off
 cls
+"../src/clear_cache" && ^
 javac -cp "C:\Cache" -d "C:\Cache" "../MyClasses/*.java" && javac -cp "C:\Cache" -d "C:\Cache" AbcScanner.java && javac -cp "C:\Cache" -d "C:\Cache" Reverse.java && (
     (
         echo 1 2

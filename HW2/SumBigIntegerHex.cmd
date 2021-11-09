@@ -1,5 +1,6 @@
 @echo off
 cls
+"../src/clear_cache" && ^
 javac -cp "C:\Cache" -d "C:\Cache" SumBigIntegerHex.java && (
     java -cp "C:\Cache" SumBigIntegerHex 1 2 3
     java -cp "C:\Cache" SumBigIntegerHex 1 2 -3

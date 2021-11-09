@@ -1,3 +1,9 @@
 @echo off
 cls
-javac -cp "C:\Cache" -d "C:\Cache" WordStatCount.java && "../src/run_jar" "%~dp0/tests/WordStatCountTest.jar"
+"../src/clear_cache" && ^
+javac -cp "C:\Cache" -d "C:\Cache" -encoding utf-8 "../tests/java/base/*.java" && ^
+javac -cp "C:\Cache" -d "C:\Cache" -encoding utf-8 "../tests/java/wordStat/WordStatChecker.java" && ^
+javac -cp "C:\Cache" -d "C:\Cache" -encoding utf-8 "../tests/java/wordStat/WordStatInputTest.java" && ^
+javac -cp "C:\Cache" -d "C:\Cache" "../tests/java/wordStat/WordStatCountTest.java" && ^
+javac -cp "C:\Cache" -d "C:\Cache" WordStatCount.java && ^
+java -cp "C:\Cache" wordStat.WordStatCountTest

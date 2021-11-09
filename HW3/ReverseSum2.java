@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ReverseSum2 {
-    public static class IntList {
+    private static class IntList {
 
         public int[] numbers = new int[0];
         public int size = 0;
