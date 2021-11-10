@@ -70,7 +70,7 @@ public class Scanner implements AutoCloseable {
 
     private boolean read() throws IOException {
         if (!hasBufferedChar) {
-            while (bufferPos == storedInBuffer) {
+            while (bufferPos == storedInBuffer || storedInBuffer == -1) {
                 if ((storedInBuffer = reader.read(buffer)) == -1) {
                     return false;
                 }
