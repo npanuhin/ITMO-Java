@@ -11,11 +11,11 @@ public class OrderedList extends AbstractList {
 
     @Override
     public void toMarkdown(StringBuilder builder) {
-        super.toMarkdown(builder, "<ol>", "</ol>");
+        toMarkdown(builder, "<ol>", "</ol>");
     }
 
     @Override
     public void toHtml(StringBuilder builder) {
-        super.toHtml(builder, "<ol>", "</ol>");
+        toHtml(builder, "<ol>", "</ol>");
     }
 }

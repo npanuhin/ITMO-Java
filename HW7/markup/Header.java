@@ -19,7 +19,7 @@ public class Header extends AbstractContainer {
             "%s(level=%s, {%s})",
             getClass().getSimpleName(),
             level,
-            super.items.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(", "))
+            items.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(", "))
         );
     }
 
@@ -28,11 +28,11 @@ public class Header extends AbstractContainer {
             builder.append('#');
         }
         builder.append(' ');
-        super.toMarkdown(builder, "", "");
+        toMarkdown(builder, "", "");
     }
 
     public void toHtml(StringBuilder builder) {
-        super.toHtml(
+        toHtml(
             builder,
             "<h" + level + ">",
             "</h" + level + ">"

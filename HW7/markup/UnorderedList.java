@@ -5,17 +5,17 @@ import java.util.List;
 
 public class UnorderedList extends AbstractList {
 
-    public UnorderedList(List<ListItem> items) {
+    public UnorderedList(final List<ListItem> items) {
         super(items);
     }
 
     @Override
-    public void toMarkdown(StringBuilder builder) {
-        super.toMarkdown(builder, "<ul>", "</ul>");
+    public void toMarkdown(final StringBuilder builder) {
+        toMarkdown(builder, "<ul>", "</ul>");
     }
 
     @Override
-    public void toHtml(StringBuilder builder) {
-        super.toHtml(builder, "<ul>", "</ul>");
+    public void toHtml(final StringBuilder builder) {
+        toHtml(builder, "<ul>", "</ul>");
     }
 }

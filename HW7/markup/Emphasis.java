@@ -11,11 +11,11 @@ public class Emphasis extends AbstractContainer implements AbstractContainerItem
 
     @Override
     public void toMarkdown(StringBuilder builder) {
-        super.toMarkdown(builder, "*", "*");
+        toMarkdown(builder, "*", "*");
     }
 
     @Override
     public void toHtml(StringBuilder builder) {
-        super.toHtml(builder, "<em>", "</em>");
+        toHtml(builder, "<em>", "</em>");
     }
 }

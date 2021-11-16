@@ -11,11 +11,11 @@ public class Strikeout extends AbstractContainer implements AbstractContainerIte
 
     @Override
     public void toMarkdown(StringBuilder builder) {
-        super.toMarkdown(builder, "~", "~");
+        toMarkdown(builder, "~", "~");
     }
 
     @Override
     public void toHtml(StringBuilder builder) {
-        super.toHtml(builder, "<s>", "</s>");
+        toHtml(builder, "<s>", "</s>");
     }
 }

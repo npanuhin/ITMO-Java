@@ -11,11 +11,11 @@ public class Paragraph extends AbstractContainer implements AbstractListed {
 
     @Override
     public void toMarkdown(StringBuilder builder) {
-        super.toMarkdown(builder, "", "");
+        toMarkdown(builder, "", "");
     }
 
     @Override
     public void toHtml(StringBuilder builder) {
-        super.toHtml(builder, "", "");
+        toHtml(builder, "", "");
     }
 }
