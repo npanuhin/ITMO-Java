@@ -166,4 +166,19 @@ public class Scanner implements AutoCloseable {
             return Integer.parseInt(number);
         }
     }
+
+    public String nextLine() throws IOException {
+        // if (isEndOfLine()) {
+        //     throw new IOException("Empty input to generate String"); 
+        // }
+
+        StringBuilder result = new StringBuilder();
+
+        while (canRead() && !isEndOfLine()) {
+            result.append(bufferedChar);
+            hasBufferedChar = false;
+        }
+
+        return result.toString();
+    }
 }
