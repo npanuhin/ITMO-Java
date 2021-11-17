@@ -14,7 +14,7 @@ public class IntList {
     }
 
     public void add(int value) {
-        set(size, value);
+        set(this.size, value);
     }
 
     public int get(int pos) {
