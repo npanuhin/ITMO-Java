@@ -15,7 +15,7 @@ abstract class AbstractContainer implements AbstractElement {
         return String.format(
             "%s(%s)",
             getClass().getSimpleName(),
-            items.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(", "))
+            items.stream().map(String::valueOf).collect(Collectors.joining(", "))
         );
     }
 

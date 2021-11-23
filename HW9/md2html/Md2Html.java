@@ -2,7 +2,6 @@ package md2html;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -16,14 +15,11 @@ import java.io.FileInputStream;
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 
-import java.lang.reflect.Constructor;
-
 import markup.*;
 
 
 public class Md2Html {
-
-    private static void rtrimStringBuilder(StringBuilder s) {
+    private static void rtrimStringBuilder(final StringBuilder s) {
         int i = s.length() - 1;
         while (i >= 0 && Character.isWhitespace(s.charAt(i))) {
             i--;
@@ -31,42 +27,32 @@ public class Md2Html {
         s.setLength(i + 1);
     }
 
-    private final static String[] markdownTags = new String[]{"*", "_", "**", "__", "--", "`", "<<", "}}"};
-    private final static Map<String, Integer> tagIndexes = new HashMap<>();
-    private final static int tagCount = markdownTags.length;
-    private final static ArrayList<Class<? extends AbstractContainerItem>> markupElements = new ArrayList<>(
-        Arrays.asList(
-            Emphasis.class, Emphasis.class, Strong.class, Strong.class,
-            Strikeout.class, Code.class, Insertion.class, Deletion.class
-        )
-    );
-    private final static Map<String, Class<? extends AbstractContainerItem>> markupByTag = new HashMap<>();
+    private static final String[] MARKDOWN_TAGS = {"*", "_", "**", "__", "--", "`", "<<", "}}"};
+    private static final Map<String, Integer> tagIndexes = new HashMap<>();
 
     static {
-        for (int i = 0; i < tagCount; i++) {
-            tagIndexes.put(markdownTags[i], i);
-            markupByTag.put(markdownTags[i], markupElements.get(i));
+        for (int i = 0; i < MARKDOWN_TAGS.length; i++) {
+            tagIndexes.put(MARKDOWN_TAGS[i], i);
         }
         tagIndexes.put(">>", tagIndexes.get("<<"));
         tagIndexes.put("{{", tagIndexes.get("}}"));
-        markupByTag.put(">>", markupByTag.get("<<"));
-        markupByTag.put("{{", markupByTag.get("{{"));
     }
 
-    private static int getTagIndex(String text, int startIndex) {
-        int res = tagIndexes.getOrDefault(text.substring(startIndex, Math.min(startIndex + 2, text.length())), -1);
-        if (res == -1) {
-            res = tagIndexes.getOrDefault(String.valueOf(text.charAt(startIndex)), -1);
+    private static int getTagIndex(final String text, final int startIndex) {
+        final int res = tagIndexes.getOrDefault(text.substring(startIndex, Math.min(startIndex + 2, text.length())), -1);
+        if (res != -1) {
+            return res;
         }
-        return res;
+
+        return tagIndexes.getOrDefault(String.valueOf(text.charAt(startIndex)), -1);
     }
 
-    private static ArrayList<AbstractContainerItem> parseInlineMd(String text) throws ReflectiveOperationException {
-        ArrayList<AbstractContainerItem> result = new ArrayList<>();
+    private static List<AbstractContainerItem> parseInlineMd(final String text) {
+        final List<AbstractContainerItem> result = new ArrayList<>();
 
-        IntList[] tagsInText = new IntList[tagCount];
-        for (int i = 0; i < tagCount; i++) {
-            tagsInText[i] = new IntList();
+        final List<IntList> tagsInText = new ArrayList<>();
+        for (int i = 0; i < MARKDOWN_TAGS.length; i++) {
+            tagsInText.add(new IntList());
         }
 
         int tagIndex;
@@ -77,69 +63,57 @@ public class Md2Html {
             }
             tagIndex = getTagIndex(text, i);
             if (tagIndex != -1) {
-                tagsInText[tagIndex].add(i);
+                tagsInText.get(tagIndex).add(i);
             }
         }
 
-        for (IntList tagInText : tagsInText) {
+        for (final IntList tagInText : tagsInText) {
             if (tagInText.size % 2 == 1) {
                 tagInText.size--;
             }
             tagInText.reverse();
         }
 
-        StringBuilder buffer = new StringBuilder();
+        final StringBuilder buffer = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
             if (c == '\\') {
-                if (i >= text.length()) {
+                if (i >= text.length() - 1) {
                     buffer.append(c);
                     continue;
                 }
-                c = text.charAt(++i);
+                c = text.charAt(i);
+                continue;
 
             } else {
                 tagIndex = getTagIndex(text, i);
 
                 if (tagIndex != -1) {
-                    while (!tagsInText[tagIndex].isEmpty() && tagsInText[tagIndex].back() < i) {
-                        tagsInText[tagIndex].size--;
+                    final IntList tagIndices = tagsInText.get(tagIndex);
+                    while (!tagIndices.isEmpty() && tagIndices.back() < i) {
+                        tagIndices.size--;
                     }
 
-                    if (!tagsInText[tagIndex].isEmpty()) {
-                        i += markdownTags[tagIndex].length();
-                        tagsInText[tagIndex].size--;
-                        int end = tagsInText[tagIndex].pop();
+                    if (!tagIndices.isEmpty()) {
+                        final String tag = MARKDOWN_TAGS[tagIndex];
+                        i += tag.length();
+                        tagIndices.size--;
+                        final int end = tagIndices.pop();
 
                         if (!buffer.isEmpty()) {
                             result.add(new Text(buffer.toString()));
                             buffer.setLength(0);
                         }
 
-                        Constructor constructor = markupByTag.get(markdownTags[tagIndex]).getConstructors()[0];
-                        result.add(
-                            (AbstractContainerItem) constructor.newInstance(parseInlineMd(text.substring(i, end)))
-                        );
+                        addMarkupObj(result, tag, parseInlineMd(text.substring(i, end)));
 
-                        i = end + markdownTags[tagIndex].length() - 1;
+                        i = end + tag.length() - 1;
                         continue;
                     }
                 }
             }
 
-            switch (c) {
-                case '<':
-                    buffer.append("&lt;");
-                    continue;
-                case '>':
-                    buffer.append("&gt;");
-                    continue;
-                case '&':
-                    buffer.append("&amp;");
-                    continue;
-            }
-
-            buffer.append(c);
+            addHtmlChar(buffer, c);
         }
 
         if (!buffer.isEmpty()) {
@@ -149,56 +123,83 @@ public class Md2Html {
         return result;
     }
 
-    public static void main(String[] args) {
-        ArrayList<AbstractElement> structure = new ArrayList<>();
+    private static void addMarkupObj(
+        final List<AbstractContainerItem> result,
+        final String tag,
+        final List<AbstractContainerItem> inner
+    ) {
+        switch (tag) {
+            case "*":
+            case "_":
+                result.add(new Emphasis(inner));
+                break;
+            case "**":
+            case "__":
+                result.add(new Strong(inner));
+                break;
+            case "--":
+                result.add(new Strikeout(inner));
+                break;
+            case "`":
+                result.add(new Code(inner));
+                break;
+            case "<<":
+                result.add(new Insertion(inner));
+                break;
+            case "}}":
+                result.add(new Deletion(inner));
+                break;
+        }
+    }
+
+    private static void addHtmlChar(final StringBuilder buffer, final char c) {
+        switch (c) {
+            case '<':
+                buffer.append("&lt;");
+                break;
+            case '>':
+                buffer.append("&gt;");
+                break;
+            case '&':
+                buffer.append("&amp;");
+                break;
+            default:
+                buffer.append(c);
+        }
+    }
+
+    public static void main(final String[] args) {
+        final List<AbstractElement> paragraphs = new ArrayList<>();
 
         // Input:
         try (
-            BufferedReader reader = new BufferedReader(
+                final BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
                     new FileInputStream(args[0]),
                     "utf-8"
                 )
             )
         ) {
-            try {
-                StringBuilder block = new StringBuilder();
-                String line = "";
+            final StringBuilder block = new StringBuilder();
+            String line = "";
 
-                while (line != null && (line = reader.readLine()) != null) {
-                    while (line != null && !line.isEmpty()) {
-                        block.append(line).append('\n');
-                        line = reader.readLine();
-                    }
-
-                    if (!block.isEmpty()) {
-                        rtrimStringBuilder(block);
-                        
-                        int pos = 0;
-                        while (pos < block.length() && block.charAt(pos) == '#') {
-                            pos++;
-                        }
-
-                        if (pos > 0 && pos < block.length() && Character.isWhitespace(block.charAt(pos))) {
-                            int headerLvl = pos;
-                            while (Character.isWhitespace(block.charAt(pos))) {
-                                pos++;
-                            }
-                            structure.add(new Header(parseInlineMd(block.toString().substring(pos)), headerLvl));
-
-                        } else {
-                            structure.add(new HtmlParagraph(parseInlineMd(block.toString())));
-                        }
-
-                        block.setLength(0);
-                    }
+            while (line != null && (line = reader.readLine()) != null) {
+                while (line != null && !line.isEmpty()) {
+                    block.append(line).append('\n');
+                    line = reader.readLine();
                 }
-            } catch (ReflectiveOperationException e) {
-                System.out.println("Java reflection error: " + e.getMessage());
+
+                if (!block.isEmpty()) {
+                    rtrimStringBuilder(block);
+
+                    paragraphs.add(convertParagraph(block.toString()));
+
+                    block.setLength(0);
+                }
             }
-        } catch (FileNotFoundException e) {
+        } catch (final FileNotFoundException e) {
             System.out.println("Cannot open input file: " + e.getMessage());
-        } catch (IOException e) {
+        } catch (final IOException e) {
             System.out.println("Cannot read input file: " + e.getMessage());
         }
 
@@ -208,22 +209,39 @@ public class Md2Html {
 
         // Output:
         try (
-            BufferedWriter output = new BufferedWriter(
+                final BufferedWriter output = new BufferedWriter(
                 new OutputStreamWriter(
                     new FileOutputStream(args[1]),
                     "utf-8"
                 )
             );
         ) {
-            StringBuilder result = new StringBuilder();
-            for (AbstractElement block : structure) {
+            final StringBuilder result = new StringBuilder();
+            for (final AbstractElement block : paragraphs) {
                 block.toHtml(result);
                 result.append('\n');
             }
             output.write(result.toString());
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             System.out.println("Cannot write to output file: " + e.getMessage());
+        }
+    }
+
+    private static AbstractElement convertParagraph(final String paragraph) {
+        int pos = 0;
+        while (pos < paragraph.length() && paragraph.charAt(pos) == '#') {
+            pos++;
+        }
+
+        if (pos > 0 && pos < paragraph.length() && Character.isWhitespace(paragraph.charAt(pos))) {
+            final int headerLvl = pos;
+            while (Character.isWhitespace(paragraph.charAt(pos))) {
+                pos++;
+            }
+            return new Header(parseInlineMd(paragraph.substring(pos)), headerLvl);
+        } else {
+            return new HtmlParagraph(parseInlineMd(paragraph));
         }
     }
 }

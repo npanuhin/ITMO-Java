@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class Header extends AbstractContainer {
     private int level;
 
-    public Header(List<AbstractContainerItem> items, int level) {
+    public Header(final List<AbstractContainerItem> items, final int level) {
         super(items);
         this.level = level;
     }
@@ -19,19 +19,19 @@ public class Header extends AbstractContainer {
             "%s(level=%s, {%s})",
             getClass().getSimpleName(),
             level,
-            items.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(", "))
+            items.stream().map(String::valueOf).collect(Collectors.joining(", "))
         );
     }
 
-    public void toMarkdown(StringBuilder builder) {
-        for (int i = 0; i < level; i++) {
-            builder.append('#');
-        }
+    @Override
+    public void toMarkdown(final StringBuilder builder) {
+        builder.append("#".repeat(level));
         builder.append(' ');
         toMarkdown(builder, "", "");
     }
 
-    public void toHtml(StringBuilder builder) {
+    @Override
+    public void toHtml(final StringBuilder builder) {
         toHtml(
             builder,
             "<h" + level + ">",
