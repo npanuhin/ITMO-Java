@@ -1,7 +1,5 @@
 package game;
 
-import java.util.Scanner;
-
 // public class CheatingPlayer implements Player {
 //     @Override
 //     public Move makeMove(ProtectedPosition position) {

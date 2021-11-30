@@ -2,7 +2,7 @@ package game;
 
 public class SequentialPlayer implements Player {
     @Override
-    public Move makeMove(ProtectedPosition position) {
+    public Move makeMove(final ProtectedPosition position) {
         for (int r = 0; r < position.getN(); r++) {
             for (int c = 0; c < position.getM(); c++) {
                 final Move move = new Move(r, c, position.getTurn());
@@ -15,7 +15,7 @@ public class SequentialPlayer implements Player {
     }
 
     @Override
-    public boolean askForDraw(String appeal) {
+    public boolean askForDraw(final String appeal) {
         return true;
     }
 }

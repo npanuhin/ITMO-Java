@@ -21,11 +21,11 @@ public class Main {
                 // new MNKBoard(m, n, k),
                 new MNKHexBoard(n, k),
 
-                // new RandomPlayer(),
                 new RandomPlayer(),
-                // new SequentialPlayer(),
-                // new CheatingPlayer(),
-                new HumanPlayer(new Scanner(System.in))
+                new RandomPlayer()
+                // new SequentialPlayer()
+                // new CheatingPlayer()
+                // new HumanPlayer(new Scanner(System.in))
         ).play(true);
 
         switch (result) {

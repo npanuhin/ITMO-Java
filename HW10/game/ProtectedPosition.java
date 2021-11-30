@@ -3,7 +3,7 @@ package game;
 public class ProtectedPosition implements Position {
 	private Position position;
 
-	public ProtectedPosition(Position position) {
+	public ProtectedPosition(final Position position) {
 		this.position = position;
 	}
 

@@ -60,7 +60,7 @@ public class MNKBoard implements Board, Position {
     }
 
     @Override
-    public Cell getCell(final int row,final int column) {
+    public Cell getCell(final int row, final int column) {
         return field[row][column];
     }
 
@@ -70,7 +70,7 @@ public class MNKBoard implements Board, Position {
     }
 
     @Override
-    public GameResult makeMove(Move move) {
+    public GameResult makeMove(final Move move) {
         if (!isValid(move)) {
             System.out.println("Player made invalid move");
             return GameResult.LOOSE;

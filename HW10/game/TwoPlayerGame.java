@@ -5,7 +5,7 @@ public class TwoPlayerGame {
     private final Player player1;
     private final Player player2;
 
-    public TwoPlayerGame(Board board, Player player1, Player player2) {
+    public TwoPlayerGame(final Board board, final Player player1, final Player player2) {
         this.board = board;
         this.player1 = player1;
         this.player2 = player2;
@@ -25,7 +25,12 @@ public class TwoPlayerGame {
         }
     }
 
-    private int makeTwoPlayerMove(Player cur_player, int cur_player_no, Player other_player, boolean log) {
+    private int makeTwoPlayerMove(
+        final Player cur_player,
+        final int cur_player_no,
+        final Player other_player,
+        final boolean log
+    ) {
         boolean drawOffered = false;
         int result = 3;
         while (result >= 3) {
@@ -54,7 +59,7 @@ public class TwoPlayerGame {
         return result;
     }
 
-    private int makeMove(Player player, int no, boolean log) {
+    private int makeMove(final Player player, final int no, final boolean log) {
         final Move move;
         try {
             move = player.makeMove(board.getProtectedPosition());

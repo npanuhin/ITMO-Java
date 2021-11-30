@@ -6,7 +6,7 @@ public class RandomPlayer implements Player {
     private final Random random = new Random();
 
     @Override
-    public Move makeMove(ProtectedPosition position) {
+    public Move makeMove(final ProtectedPosition position) {
         while (true) {
             final Move move = new Move(
                     random.nextInt(position.getN()),
@@ -20,7 +20,7 @@ public class RandomPlayer implements Player {
     }
 
     @Override
-    public boolean askForDraw(String appeal) {
+    public boolean askForDraw(final String appeal) {
         return random.nextBoolean();
     }
 }

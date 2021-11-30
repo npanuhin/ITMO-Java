@@ -10,7 +10,7 @@ public class HumanPlayer implements Player {
     }
 
     @Override
-    public Move makeMove(ProtectedPosition position) {
+    public Move makeMove(final ProtectedPosition position) {
         Move move;
         System.out.println();
         System.out.println("Current position:");
@@ -37,7 +37,7 @@ public class HumanPlayer implements Player {
                     try {
                         String[] splittedLine = line.split("\\s+");
                         if (splittedLine.length != 2) {
-                            System.out.println("Invalid argument count");
+                            System.out.println("Invalid number of arguments: input must be 2 integers");
                             continue;
                         }
                         move = new Move(
@@ -60,13 +60,14 @@ public class HumanPlayer implements Player {
     }
 
     @Override
-    public boolean askForDraw(String appeal) {
+    public boolean askForDraw(final String appeal) {
         while (true) {
             System.out.print(appeal + ", do you want to accept the draw offer? (yes/no): ");
             String line = input.nextLine().trim().toLowerCase();
             switch (line) {
                 case "yes": return true;
                 case "no": return false;
+                default: System.out.println("Response should be either `yes` or `no`.");
             }
         }
     }

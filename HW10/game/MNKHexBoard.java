@@ -37,7 +37,6 @@ public class MNKHexBoard extends MNKBoard {
             }
 
             for (int column = 0; column <= row; column++) {
-                // System.out.println(row + " " + column + " | " + (row  - column) + " " + (column));
                 sb.append(CELL_TO_STRING.get(field[row - column][column])).append(" ");
             }
 
@@ -51,7 +50,6 @@ public class MNKHexBoard extends MNKBoard {
         for (int row = n - 2; row >= 0; row--) {
             sb.append(" ".repeat(n - row + 3));
             for (int column = 0; column <= row; column++) {
-                // System.out.println(row + " " + column + " | " + (n - column - 1) + " " + (n - row + column - 1));
                 sb.append(CELL_TO_STRING.get(field[n - column - 1][n - row + column - 1])).append(" ");
             }
             sb.setLength(sb.length() - 1);
