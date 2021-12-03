@@ -50,8 +50,7 @@ public class IntList {
     //     for (int i = 0; i < this.size - 1; i++) {
     //         result.append(this.numbers[i]).append(", ");
     //     }
-    //     result.append(this.numbers[this.size - 1]);
-    //     result.append('}');
+    //     result.append(this.numbers[this.size - 1]).append('}');
     //     return result.toString();
     // }
 }

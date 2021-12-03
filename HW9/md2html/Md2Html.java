@@ -56,14 +56,17 @@ public class Md2Html {
         }
 
         int tagIndex;
-        for (int i = 0; i < text.length(); i++) {
+        for (int i = 0; i < text.length();) {
             if (text.charAt(i) == '\\') {
-                i++;
+                i += 2;
                 continue;
             }
             tagIndex = getTagIndex(text, i);
             if (tagIndex != -1) {
                 tagsInText.get(tagIndex).add(i);
+                i += MARKDOWN_TAGS[tagIndex].length();
+            } else {
+                i++;
             }
         }
 

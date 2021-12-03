@@ -2,8 +2,7 @@
 cls
 "../src/clear_cache" && ^
 javac -cp "C:\Cache" -d "C:\Cache" "../tests/java/base/*.java" && ^
-javac -cp "C:\Cache" -d "C:\Cache" "../tests/java/Sum/SChecker.java" && ^
-javac -cp "C:\Cache" -d "C:\Cache" "../tests/java/Sum/SumChecker.java" && ^
+javac -cp "C:\Cache" -d "C:\Cache" "../tests/java/Sum/SumTester.java" && ^
 javac -cp "C:\Cache" -d "C:\Cache" "../tests/java/Sum/SumTest.java" && ^
 javac -cp "C:\Cache" -d "C:\Cache" Sum.java && ^
-java -cp "C:\Cache" sum.SumTest
+java -cp "C:\Cache" sum.SumTest Base
