@@ -42,6 +42,8 @@ def main():
     removeFromKgeorgiy("java-solutions")
     removeFromKgeorgiy("qf-solutions")
 
+    [copy(mkpath("MyClasses", file), ("java-solutions")) for file in listdir("MyClasses") if os.path.splitext(file)[1] == ".java"]
+
     [copy(mkpath("HW5", file), ("java-solutions")) for file in listdir("HW5") if os.path.splitext(file)[1] == ".java"]
 
     [copy(mkpath("HW6", file), ("java-solutions")) for file in listdir("HW6") if os.path.splitext(file)[1] == ".java"]

@@ -37,7 +37,7 @@ class IntList {
 }
 
 class PairDepthVertex {
-    public int depth = -1000000000, vertex;
+    public int depth = -1, vertex;
 }
 
 
@@ -56,7 +56,6 @@ public class E {
     }
 
     private static PairDepthVertex findFurthest(IntList[] graph, boolean[] teamCities, int[] pred, int curVertex) {
-
         PairDepthVertex result = new PairDepthVertex();
         if (teamCities[curVertex]) {
             result.depth = 0;
@@ -71,7 +70,7 @@ public class E {
 
             pred[nextVertex] = curVertex;
             PairDepthVertex nextData = findFurthest(graph, teamCities, pred, nextVertex);
-            if (nextData.depth > result.depth) {
+            if (nextData.depth != -1 && nextData.depth > result.depth) {
                 result.depth = nextData.depth;
                 result.vertex = nextData.vertex;
             }
@@ -82,23 +81,19 @@ public class E {
     }
 
     private static boolean checkDepth(IntList[] graph, boolean[] teamCities, int curVertex, int pred, int curDepth) {
-
         if (teamCities[curVertex] && curDepth != 0) {
             return false;
         }
-
         curDepth--;
 
         for (int i = 0; i < graph[curVertex].size; i++) {
             if (graph[curVertex].numbers[i] == pred) {
                 continue;
             }
-
             if (!checkDepth(graph, teamCities, graph[curVertex].numbers[i], curVertex, curDepth)) {
                 return false;
             }
         }
-        
         return true;
     }
 
