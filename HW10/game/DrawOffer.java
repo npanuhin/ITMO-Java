@@ -2,7 +2,7 @@ package game;
 
 public class DrawOffer extends Move {
 
-	public DrawOffer() {
+    public DrawOffer() {
         super(-1, -1, Cell.E);
     }
 

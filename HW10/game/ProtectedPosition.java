@@ -1,13 +1,13 @@
 package game;
 
 public class ProtectedPosition implements Position {
-	private Position position;
+    private Position position;
 
-	public ProtectedPosition(final Position position) {
-		this.position = position;
-	}
+    public ProtectedPosition(final Position position) {
+        this.position = position;
+    }
 
-	@Override
+    @Override
     public int getM() {
         return position.getM();
     }

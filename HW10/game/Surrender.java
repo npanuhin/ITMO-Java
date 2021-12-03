@@ -2,7 +2,7 @@ package game;
 
 public class Surrender extends Move {
 
-	public Surrender() {
+    public Surrender() {
         super(-1, -1, Cell.E);
     }
 
