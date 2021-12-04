@@ -9,6 +9,9 @@ def mkpath(*paths):
 
 
 for path, folders, files in os.walk(mkpath(HOME)):
+    if path.startswith(mkpath(HOME, "tests")):
+        continue
+
     for filename in files:
         if filename.endswith(EXTENSIONS):
             # print(mkpath(path, file))
@@ -16,5 +19,12 @@ for path, folders, files in os.walk(mkpath(HOME)):
             with open(mkpath(path, filename), 'r', encoding="utf-8") as file:
                 content = file.read()
 
+            # Replace tabs with spaces:
+            content = content.replace('\t', ' ' * 4)
+
+            # Add newline at the end of file if missing:
+            if not content.endswith('\n'):
+                content += '\n'
+
             with open(mkpath(path, filename), 'w', encoding="utf-8") as file:
-                file.write(content.replace('\t', ' ' * 4))
+                file.write(content)
