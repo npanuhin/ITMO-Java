@@ -56,6 +56,8 @@ def main():
 
     [copy(mkpath("HW10", "game", file), ("java-solutions", "game")) for file in listdir("HW10", "game") if os.path.splitext(file)[1] == ".java"]
 
+    [copy(mkpath("HW11", "expression", file), ("java-solutions", "expression")) for file in listdir("HW11", "expression") if os.path.splitext(file)[1] == ".java"]
+
 
 if __name__ == "__main__":
     main()

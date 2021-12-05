@@ -1,5 +1,8 @@
 package expression;
 
+import java.math.BigDecimal;
+
+
 public class Subtract extends AbstractBinaryOperator {
     public Subtract(AbstractExpression left, AbstractExpression right) {
         super(left, right);
@@ -28,5 +31,10 @@ public class Subtract extends AbstractBinaryOperator {
     @Override
     protected int count(int a, int b) {
         return a - b;
+    }
+
+    @Override
+    protected BigDecimal count(BigDecimal a, BigDecimal b) {
+        return a.subtract(b);
     }
 }

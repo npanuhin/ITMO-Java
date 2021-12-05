@@ -1,5 +1,6 @@
 package expression;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 
@@ -13,6 +14,7 @@ public abstract class AbstractBinaryOperator implements AbstractExpression {
 
     protected abstract String getOperator();
     protected abstract int count(int left, int right);
+    protected abstract BigDecimal count(BigDecimal left, BigDecimal right);
 
     @Override
     final public int evaluate(int x) {
@@ -22,6 +24,11 @@ public abstract class AbstractBinaryOperator implements AbstractExpression {
     @Override
     final public int evaluate(int x, int y, int z) {
         return count(left.evaluate(x, y, z), right.evaluate(x, y, z));
+    }
+
+    @Override
+    final public BigDecimal evaluate(BigDecimal x) {
+        return count(left.evaluate(x), right.evaluate(x));
     }
 
     @Override
@@ -35,31 +42,34 @@ public abstract class AbstractBinaryOperator implements AbstractExpression {
     final public String toMiniString() {
         StringBuilder result = new StringBuilder();
 
-        addExprToBuilder(result, left.toMiniString(), (this.getPriority() > left.getPriority()));
+        // Adding left operand
+        addMiniExprToBuilder(result, left, (this.getPriority() > left.getPriority()));
 
+        // Adding operator
         result.append(' ').append(getOperator()).append(' ');
 
+        // Adding right operand
         if (this.getPriority() < right.getPriority()) {
-            addExprToBuilder(result, right.toMiniString(), false);
+            addMiniExprToBuilder(result, right, false);
 
         } else if (this.alwaysNeedsWrap() || right.alwaysNeedsWrap()) {
-            addExprToBuilder(result, right.toMiniString(), true);
+            addMiniExprToBuilder(result, right, true);
 
         } else if (this.getPriority() == right.getPriority()) {
-            addExprToBuilder(result, right.toMiniString(), !this.isAssociative());
+            addMiniExprToBuilder(result, right, !this.isAssociative());
 
         } else {
-            addExprToBuilder(result, right.toMiniString(), true);
+            addMiniExprToBuilder(result, right, true);
         }
 
         return result.toString();
     }
 
-    private void addExprToBuilder(StringBuilder builder, String item, boolean isWrapped) {
+    private void addMiniExprToBuilder(StringBuilder builder, AbstractExpression expr, boolean isWrapped) {
         if (isWrapped) {
-            builder.append('(').append(item).append(')');
+            builder.append('(').append(expr.toMiniString()).append(')');
         } else {
-            builder.append(item);
+            builder.append(expr.toMiniString());
         }
     }
 
@@ -74,6 +84,6 @@ public abstract class AbstractBinaryOperator implements AbstractExpression {
 
     @Override
     final public int hashCode() {
-        return Objects.hashCode(this.getClass()) + 31 * (left.hashCode() + 17 * right.hashCode());
+        return Objects.hashCode(this.getClass()) + 17 * (left.hashCode() + 31 * right.hashCode());
     }
 }

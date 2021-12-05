@@ -1,10 +1,20 @@
 package expression;
 
+import java.math.BigDecimal;
+
+
 public class Const implements AbstractExpression {
     private final int value;
+    private final BigDecimal decimalValue;
 
     public Const(int value) {
         this.value = value;
+        this.decimalValue = null;
+    }
+
+    public Const(BigDecimal value) {
+        this.value = 0;
+        this.decimalValue = value;
     }
 
     @Override
@@ -14,7 +24,7 @@ public class Const implements AbstractExpression {
 
     @Override
     public boolean isAssociative() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("isAssociative is not defined for Const");
+        throw new UnsupportedOperationException("Associativity is not defined for Const");
     }
 
     @Override
@@ -24,7 +34,7 @@ public class Const implements AbstractExpression {
 
     @Override
     public String toString() {
-        return Integer.toString(value);
+        return (decimalValue == null ? Integer.toString(value) : decimalValue.toString());
     }
 
     @Override
@@ -38,15 +48,24 @@ public class Const implements AbstractExpression {
     }
 
     @Override
+    public BigDecimal evaluate(BigDecimal x) {
+        return decimalValue == null ? new BigDecimal(value) : decimalValue;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj != null && getClass() == obj.getClass()) {
-            return value == ((Const) obj).value;
+            if (this.decimalValue == null) {
+                return value == ((Const) obj).value;
+            } else {
+                return decimalValue.equals(((Const) obj).decimalValue);
+            }
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return value;
+        return decimalValue == null ? value : decimalValue.hashCode();
     }
 }

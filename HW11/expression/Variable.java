@@ -1,5 +1,8 @@
 package expression;
 
+import java.math.BigDecimal;
+
+
 public class Variable implements AbstractExpression {
     private final String name;
 
@@ -14,7 +17,7 @@ public class Variable implements AbstractExpression {
 
     @Override
     public boolean isAssociative() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("isAssociative is not defined for Variable");
+        throw new UnsupportedOperationException("Associativity is not defined for Variable");
     }
 
     @Override
@@ -29,6 +32,11 @@ public class Variable implements AbstractExpression {
 
     @Override
     public int evaluate(int x) {
+        return x;
+    }
+
+    @Override
+    public BigDecimal evaluate(BigDecimal x) {
         return x;
     }
 
