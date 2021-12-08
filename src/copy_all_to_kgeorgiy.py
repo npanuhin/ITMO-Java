@@ -44,6 +44,12 @@ def main():
 
     [copy(mkpath("MyClasses", file), ("java-solutions")) for file in listdir("MyClasses") if os.path.splitext(file)[1] == ".java"]
 
+    [copy(mkpath("HW2", file), ("java-solutions")) for file in listdir("HW2") if os.path.splitext(file)[1] == ".java"]
+
+    [copy(mkpath("HW3", file), ("java-solutions")) for file in listdir("HW3") if os.path.splitext(file)[1] == ".java"]
+
+    [copy(mkpath("HW4", file), ("java-solutions")) for file in listdir("HW4") if os.path.splitext(file)[1] == ".java"]
+
     [copy(mkpath("HW5", file), ("java-solutions")) for file in listdir("HW5") if os.path.splitext(file)[1] == ".java"]
 
     [copy(mkpath("HW6", file), ("java-solutions")) for file in listdir("HW6") if os.path.splitext(file)[1] == ".java"]
