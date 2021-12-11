@@ -33,52 +33,42 @@ public abstract class AbstractBinaryOperator implements AbstractExpression {
     }
 
     @Override
-    public void toString(StringBuilder sb) {
-        sb.append('(');
-        left.toString(sb);
-        sb.append(' ').append(getOperator()).append(' ');
-        right.toString(sb);
-        sb.append(')');
-    }
-
-    @Override
     public String toString() {
         if (cachedToString == null) {
             StringBuilder result = new StringBuilder();
-            toString(result);
+
+            result.append('(').append(left).append(' ').append(getOperator()).append(' ').append(right).append(')');
+
             cachedToString = result.toString();
         }
         return cachedToString;
     }
 
     @Override
-    public void toMiniString(StringBuilder sb) {
-        // Adding left operand
-        addMiniExprToBuilder(sb, left, (this.getPriority() > left.getPriority()));
-
-        // Adding operator
-        sb.append(' ').append(getOperator()).append(' ');
-
-        // Adding right operand
-        if (this.getPriority() < right.getPriority()) {
-            addMiniExprToBuilder(sb, right, false);
-
-        } else if (this.alwaysNeedsWrap() || right.alwaysNeedsWrap()) {
-            addMiniExprToBuilder(sb, right, true);
-
-        } else if (this.getPriority() == right.getPriority()) {
-            addMiniExprToBuilder(sb, right, !this.isAssociative());
-
-        } else {
-            addMiniExprToBuilder(sb, right, true);
-        }
-    }
-
-    @Override
     public String toMiniString() {
         if (cachedToMiniString == null) {
             StringBuilder result = new StringBuilder();
-            toMiniString(result);
+
+            // Adding left operand
+            addMiniExprToBuilder(result, left, (this.getPriority() > left.getPriority()));
+
+            // Adding operator
+            result.append(' ').append(getOperator()).append(' ');
+
+            // Adding right operand
+            if (this.getPriority() < right.getPriority()) {
+                addMiniExprToBuilder(result, right, false);
+
+            } else if (this.alwaysNeedsWrap() || right.alwaysNeedsWrap()) {
+                addMiniExprToBuilder(result, right, true);
+
+            } else if (this.getPriority() == right.getPriority()) {
+                addMiniExprToBuilder(result, right, !this.isAssociative());
+
+            } else {
+                addMiniExprToBuilder(result, right, true);
+            }
+
             cachedToMiniString = result.toString();
         }
         return cachedToMiniString;
@@ -88,7 +78,7 @@ public abstract class AbstractBinaryOperator implements AbstractExpression {
         if (isWrapped) {
             builder.append('(');
         }
-        expr.toMiniString(builder);
+        builder.append(expr.toMiniString());
         if (isWrapped) {
             builder.append(')');
         }
