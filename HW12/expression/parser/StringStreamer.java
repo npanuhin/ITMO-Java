@@ -19,7 +19,7 @@ public class StringStreamer implements AbstractStreamer {
     }
 
     @Override
-    public void expectChar(char c) {
+    public void expect(char c) {
         if (getChar() != c) {
             throw new IllegalArgumentException("Expected \"" + c + "\", got smth else");
         }

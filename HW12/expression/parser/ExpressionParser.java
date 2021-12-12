@@ -23,7 +23,7 @@ public class ExpressionParser implements Parser {
         }
     }
 
-    private int parseNextInt(boolean isNegative) {
+    private int parseInt(boolean isNegative) {
         StringBuilder number = new StringBuilder();
         if (isNegative) {
             number.append('-');
@@ -35,24 +35,31 @@ public class ExpressionParser implements Parser {
     }
 
     private AbstractExpression parsePriority3() {
-        // System.err.println("parsePriority3(\"" + expr.substring(pos) + "\")");
         skipWhitespaces();
 
         if (expr.skipIfMatch('(')) {
-            AbstractExpression result = parsePriority1();
-            expr.expectChar(')');
+            AbstractExpression result = parsePriority0();
+            expr.expect(')');
             return result;
         }
 
-        if (expr.skipIfMatch('-')) {
+        if (expr.skipIfMatch('l')) {
+            expr.expect('0');
+            return new LeadingZeros(parsePriority3());
+
+        } else if (expr.skipIfMatch('t')) {
+            expr.expect('0');
+            return new TrailingZeros(parsePriority3());
+
+        } else if (expr.skipIfMatch('-')) {
             if (isDigit(expr.curChar())) {
-                return new Const(parseNextInt(true));
+                return new Const(parseInt(true));
             } else {
                 return new Minus(parsePriority3());
             }
 
         } else if (isDigit(expr.curChar())) {
-            return new Const(parseNextInt(false));
+            return new Const(parseInt(false));
 
         } else if (variables.contains(expr.curChar())) {
             return new Variable(expr.getChar());
@@ -65,12 +72,10 @@ public class ExpressionParser implements Parser {
     }
 
     private AbstractExpression parsePriority2() {
-        // System.err.println("parsePriority2(\"" + expr.substring(pos) + "\")");
         AbstractExpression result = parsePriority3();;
 
         skipWhitespaces();
         while (expr.hasNextChar()) {
-
             if (expr.skipIfMatch('*')) {
                 result = new Multiply(result, parsePriority3());
             } else if (expr.skipIfMatch('/')) {
@@ -85,12 +90,10 @@ public class ExpressionParser implements Parser {
     }
 
     private AbstractExpression parsePriority1() {
-        // System.err.println("parsePriority1(\"" + expr.substring(pos) + "\")");
         AbstractExpression result = parsePriority2();;
 
         skipWhitespaces();
         while (expr.hasNextChar()) {
-
             if (expr.skipIfMatch('+')) {
                 result = new Add(result, parsePriority2());
             } else if (expr.skipIfMatch('-')) {
@@ -104,9 +107,33 @@ public class ExpressionParser implements Parser {
         return result;
     }
 
+    private AbstractExpression parsePriority0() {
+        AbstractExpression result = parsePriority1();;
+
+        skipWhitespaces();
+        while (expr.hasNextChar()) {
+            if (expr.skipIfMatch('>')) {
+                expr.expect('>');
+                if (expr.skipIfMatch('>')) {
+                    result = new RightArithmeticBitshift(result, parsePriority1());
+                } else {
+                    result = new RightBitshift(result, parsePriority1());
+                }
+            } else if (expr.skipIfMatch('<')) {
+                expr.expect('<');
+                result = new LeftBitshift(result, parsePriority1());
+            } else {
+                break;
+            }
+            skipWhitespaces();
+        }
+
+        return result;
+    }
+
     @Override
     public AbstractExpression parse(String expression) {
         this.expr = new StringStreamer(expression);
-        return parsePriority1();
+        return parsePriority0();
     }
 }

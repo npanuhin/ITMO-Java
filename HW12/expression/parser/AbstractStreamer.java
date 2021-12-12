@@ -1,10 +1,16 @@
 package expression.parser;
 
 public interface AbstractStreamer {
-    public char curChar();
-    public char getChar();
-    public boolean hasNextChar();
+    char curChar();
+    char getChar();
+    boolean hasNextChar();
 
-    public void expectChar(char c);
-    public boolean skipIfMatch(char c);
+    boolean skipIfMatch(char c);
+    void expect(char c);
+
+    // default void expect(String s) {
+    //     for (int i = 0; i < s.length(); ++i) {
+    //         expect(s.charAt(i));
+    //     }
+    // }
 }

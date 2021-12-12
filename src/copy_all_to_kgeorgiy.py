@@ -18,8 +18,18 @@ def removeFromKgeorgiy(path):
         rmtree(mkpath(KGEORGIY_ROOT, path))
 
 
-def listdir(*path):
-    return os.listdir(mkpath(ROOT, *path))
+def ext(path):
+    return os.path.splitext(mkpath(path))[1]
+
+
+def listdir(*paths):
+    return os.listdir(mkpath(ROOT, *paths))
+
+
+def listdir_java(*paths):
+    for file in listdir(*paths):
+        if ext(file) == ".java":
+            yield file
 
 
 def copy(src, dst):
@@ -42,27 +52,30 @@ def main():
     removeFromKgeorgiy("java-solutions")
     removeFromKgeorgiy("qf-solutions")
 
-    [copy(mkpath("MyClasses", file), ("java-solutions")) for file in listdir("MyClasses") if os.path.splitext(file)[1] == ".java"]
+    [copy(mkpath("MyClasses", file), ("java-solutions")) for file in listdir_java("MyClasses")]
 
-    [copy(mkpath("HW2", file), ("java-solutions")) for file in listdir("HW2") if os.path.splitext(file)[1] == ".java"]
+    [copy(mkpath("HW2", file), ("java-solutions")) for file in listdir_java("HW2")]
 
-    [copy(mkpath("HW3", file), ("java-solutions")) for file in listdir("HW3") if os.path.splitext(file)[1] == ".java"]
+    [copy(mkpath("HW3", file), ("java-solutions")) for file in listdir_java("HW3")]
 
-    [copy(mkpath("HW4", file), ("java-solutions")) for file in listdir("HW4") if os.path.splitext(file)[1] == ".java"]
+    [copy(mkpath("HW4", file), ("java-solutions")) for file in listdir_java("HW4")]
 
-    [copy(mkpath("HW5", file), ("java-solutions")) for file in listdir("HW5") if os.path.splitext(file)[1] == ".java"]
+    [copy(mkpath("HW5", file), ("java-solutions")) for file in listdir_java("HW5")]
 
-    [copy(mkpath("HW6", file), ("java-solutions")) for file in listdir("HW6") if os.path.splitext(file)[1] == ".java"]
+    [copy(mkpath("HW6", file), ("java-solutions")) for file in listdir_java("HW6")]
 
-    [copy(mkpath("HW7", "markup", file), ("java-solutions", "markup")) for file in listdir("HW7", "markup") if os.path.splitext(file)[1] == ".java"]
+    [copy(mkpath("HW7", "markup", file), ("java-solutions", "markup")) for file in listdir_java("HW7", "markup")]
 
-    [copy(mkpath("HW8", file), ("qf-solutions", os.path.splitext(file)[0])) for file in listdir("HW8") if os.path.splitext(file)[1] == ".java"]
+    [copy(mkpath("HW8", file), ("qf-solutions", os.path.splitext(file)[0])) for file in listdir_java("HW8")]
 
-    [copy(mkpath("HW9", "md2html", file), ("java-solutions", "md2html")) for file in listdir("HW9", "md2html") if os.path.splitext(file)[1] == ".java"]
+    [copy(mkpath("HW9", "md2html", file), ("java-solutions", "md2html")) for file in listdir_java("HW9", "md2html")]
 
-    [copy(mkpath("HW10", "game", file), ("java-solutions", "game")) for file in listdir("HW10", "game") if os.path.splitext(file)[1] == ".java"]
+    [copy(mkpath("HW10", "game", file), ("java-solutions", "game")) for file in listdir_java("HW10", "game")]
 
-    [copy(mkpath("HW11", "expression", file), ("java-solutions", "expression")) for file in listdir("HW11", "expression") if os.path.splitext(file)[1] == ".java"]
+    [copy(mkpath("HW11", "expression", file), ("java-solutions", "expression")) for file in listdir_java("HW11", "expression")]
+
+    [copy(mkpath("HW12", "expression", file), ("java-solutions", "expression")) for file in listdir_java("HW12", "expression")]
+    [copy(mkpath("HW12", "expression", "parser", file), ("java-solutions", "expression", "parser")) for file in listdir_java("HW12", "expression", "parser")]
 
 
 if __name__ == "__main__":
