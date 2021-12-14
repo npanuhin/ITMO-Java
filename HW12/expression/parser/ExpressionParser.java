@@ -5,11 +5,10 @@ import java.util.Arrays;
 import java.util.Set;
 
 import expression.*;
-import expression.parser.*;
 
 
 public class ExpressionParser implements Parser {
-    private static Set<Character> variables = new HashSet<>(Arrays.asList('x', 'y', 'z'));
+    private static final Set<Character> VARIABLES = Set.of('x', 'y', 'z');
     private AbstractStreamer expr;
 
     private boolean isDigit(char c) {
@@ -23,7 +22,7 @@ public class ExpressionParser implements Parser {
         }
     }
 
-    private int parseInt(boolean isNegative) {
+    private int parseInt(final boolean isNegative) {
         StringBuilder number = new StringBuilder();
         if (isNegative) {
             number.append('-');
@@ -61,7 +60,7 @@ public class ExpressionParser implements Parser {
         } else if (isDigit(expr.curChar())) {
             return new Const(parseInt(false));
 
-        } else if (variables.contains(expr.curChar())) {
+        } else if (VARIABLES.contains(expr.curChar())) {
             return new Variable(expr.getChar());
 
         } else {
@@ -90,7 +89,7 @@ public class ExpressionParser implements Parser {
     }
 
     private AbstractExpression parsePriority1() {
-        AbstractExpression result = parsePriority2();;
+        AbstractExpression result = parsePriority2();
 
         skipWhitespaces();
         while (expr.hasNextChar()) {
@@ -108,7 +107,7 @@ public class ExpressionParser implements Parser {
     }
 
     private AbstractExpression parsePriority0() {
-        AbstractExpression result = parsePriority1();;
+        AbstractExpression result = parsePriority1();
 
         skipWhitespaces();
         while (expr.hasNextChar()) {
