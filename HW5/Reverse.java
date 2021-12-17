@@ -5,6 +5,8 @@ import java.util.List;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+import myclasses.*;
+
 
 public class Reverse {
     public static void main(String[] args) {

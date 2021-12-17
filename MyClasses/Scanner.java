@@ -1,3 +1,5 @@
+package myclasses;
+
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.InputStream;
@@ -6,17 +8,17 @@ import java.io.Reader;
 import java.io.IOException;
 
 
-interface Delimiter {
-    public boolean isWhitespace(char c);
-}
-
-class DefaultDelimiter implements Delimiter {
-    public boolean isWhitespace(char c) {
-        return c == ' ';
-    }
-}
-
 public class Scanner implements AutoCloseable {
+    public interface Delimiter {
+        public boolean isWhitespace(char c);
+    }
+
+    private static class DefaultDelimiter implements Delimiter {
+        public boolean isWhitespace(char c) {
+            return c == ' ';
+        }
+    }
+
     private Reader reader;
     private int read;
     private Delimiter delimiter = new DefaultDelimiter();

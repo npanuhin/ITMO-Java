@@ -5,6 +5,8 @@ import java.util.List;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import myclasses.*;
+
 
 public class ReverseHexAbc2 {
     public static void main(String[] args) {

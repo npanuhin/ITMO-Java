@@ -12,8 +12,10 @@ import java.io.FileInputStream;
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 
+import myclasses.*;
 
-class WsppSortedSecongGDelimiter implements Delimiter {
+
+class WsppSortedSecongGDelimiter implements Scanner.Delimiter {
     public boolean isWhitespace(char c) {
         return !(
             Character.getType(c) == Character.DASH_PUNCTUATION ||

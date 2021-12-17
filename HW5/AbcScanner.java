@@ -3,6 +3,8 @@ import java.io.InputStream;
 
 import java.io.IOException;
 
+import myclasses.*;
+
 
 public class AbcScanner extends Scanner {
 

@@ -6,6 +6,10 @@ import java.math.BigDecimal;
 public class Variable implements AbstractExpression {
     private final String name;
 
+    public Variable(char name) {
+        this.name = Character.toString(name);
+    }
+
     public Variable(String name) {
         this.name = name;
     }

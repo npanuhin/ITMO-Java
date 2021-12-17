@@ -74,7 +74,6 @@ def main():
 
     [copy(mkpath("HW11", "expression", file), ("java-solutions", "expression")) for file in listdir_java("HW11", "expression")]
 
-    [copy(mkpath("HW12", "expression", file), ("java-solutions", "expression")) for file in listdir_java("HW12", "expression")]
     [copy(mkpath("HW12", "expression", "parser", file), ("java-solutions", "expression", "parser")) for file in listdir_java("HW12", "expression", "parser")]
 
 

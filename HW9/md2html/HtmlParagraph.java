@@ -2,8 +2,7 @@ package md2html;
 
 import java.util.List;
 
-import markup.AbstractContainerItem;
-import markup.Paragraph;
+import markup.*;
 
 
 public class HtmlParagraph extends Paragraph {

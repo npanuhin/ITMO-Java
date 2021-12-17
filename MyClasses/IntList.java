@@ -1,3 +1,5 @@
+package myclasses;
+
 import java.util.Arrays;
 
 
@@ -20,4 +22,35 @@ public class IntList {
     public int get(int pos) {
         return this.numbers[pos];
     }
+
+    public int back() {
+        return this.numbers[this.size - 1];
+    }
+
+    public int pop() {
+        return this.numbers[--this.size];
+    }
+
+    public boolean isEmpty() {
+        return this.size == 0;
+    }
+
+    public void reverse() {
+        int tmp;
+        for (int i = 0; i < this.size / 2; i++) {
+            tmp = this.numbers[i];
+            this.numbers[i] = this.numbers[this.size - 1 - i];
+            this.numbers[this.size - 1 - i] = tmp;
+        }
+    }
+
+    // public String toString() {
+    //     StringBuilder result = new StringBuilder();
+    //     result.append('{');
+    //     for (int i = 0; i < this.size - 1; i++) {
+    //         result.append(this.numbers[i]).append(", ");
+    //     }
+    //     result.append(this.numbers[this.size - 1]).append('}');
+    //     return result.toString();
+    // }
 }

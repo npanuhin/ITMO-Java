@@ -11,8 +11,9 @@ import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.BufferedWriter;
 
+import myclasses.*;
 
-class WordStatDelimiter implements Delimiter {
+class WordStatDelimiter implements Scanner.Delimiter {
     public boolean isWhitespace(char c) {
         return !(
             Character.getType(c) == Character.DASH_PUNCTUATION ||

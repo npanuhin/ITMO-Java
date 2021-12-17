@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 
+import myclasses.*;
 import markup.*;
 
 
@@ -176,7 +177,7 @@ public class Md2Html {
 
         // Input:
         try (
-                final BufferedReader reader = new BufferedReader(
+            final BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
                     new FileInputStream(args[0]),
                     "utf-8"
@@ -212,19 +213,20 @@ public class Md2Html {
 
         // Output:
         try (
-                final BufferedWriter output = new BufferedWriter(
+            final BufferedWriter output = new BufferedWriter(
                 new OutputStreamWriter(
                     new FileOutputStream(args[1]),
                     "utf-8"
                 )
             );
         ) {
-            final StringBuilder result = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             for (final AbstractElement block : paragraphs) {
-                block.toHtml(result);
-                result.append('\n');
+                block.toHtml(sb);
+                output.write(sb.toString());
+                sb.setLength(0);
+                output.newLine();
             }
-            output.write(result.toString());
 
         } catch (final IOException e) {
             System.out.println("Cannot write to output file: " + e.getMessage());
