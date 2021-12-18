@@ -1,10 +1,11 @@
-package expression.parser;
+package expression.exceptions;
 
 import java.util.HashSet;
 import java.util.Arrays;
 import java.util.Set;
 
 import expression.*;
+import expression.parser.*;
 
 
 public class ExpressionParser implements Parser {
@@ -22,7 +23,7 @@ public class ExpressionParser implements Parser {
         }
     }
 
-    private int parseInt(final boolean isNegative) {
+    private int parseInt(final boolean isNegative) throws ParseException {
         StringBuilder number = new StringBuilder();
         if (isNegative) {
             number.append('-');
@@ -30,11 +31,22 @@ public class ExpressionParser implements Parser {
         while (expr.hasNextChar() && isDigit(expr.curChar())) {
             number.append(expr.getChar());
         }
-        return Integer.parseInt(number.toString());
+        try {
+            return Integer.parseInt(number.toString());
+        } catch (NumberFormatException e) {
+            throw new ParseException("Overflow in parseInt(" + number + ")");
+        }
     }
 
-    private AbstractExpression parsePriority3() {
+    private AbstractExpression parsePriority4() throws ParseException {
+        // System.err.println("parsePriority4(" + expr.substring() + ')');
         skipWhitespaces();
+
+        if (!expr.hasNextChar()) {
+            throw new ParseException(
+                "Unexpected end of stream, expected Const, Variable or any other Expression at the end"
+            );
+        }
 
         if (expr.skipIfMatch('(')) {
             AbstractExpression result = parsePriority0();
@@ -44,17 +56,19 @@ public class ExpressionParser implements Parser {
 
         if (expr.skipIfMatch('l')) {
             expr.expect('0');
-            return new LeadingZeros(parsePriority3());
+            return new LeadingZeros(parsePriority4());
 
         } else if (expr.skipIfMatch('t')) {
             expr.expect('0');
-            return new TrailingZeros(parsePriority3());
+            return new TrailingZeros(parsePriority4());
 
         } else if (expr.skipIfMatch('-')) {
-            if (isDigit(expr.curChar())) {
+            if (!expr.hasNextChar()) {
+                throw new ParseException("Unexpected end of stream, expected Const or any Expression after \"-\"");
+            } else if (isDigit(expr.curChar())) {
                 return new Const(parseInt(true));
             } else {
-                return new Negate(parsePriority3());
+                return new CheckedNegate(parsePriority4());
             }
 
         } else if (isDigit(expr.curChar())) {
@@ -64,21 +78,41 @@ public class ExpressionParser implements Parser {
             return new Variable(expr.getChar());
 
         } else {
-            throw new IllegalArgumentException(
-                "Can not identify expression starting with char: \"" + expr.curChar() + "\"..."
+            throw new ParseException(
+                "Parser can not identify expression starting with char: \"" + expr.curChar() + "\""
             );
         }
     }
 
-    private AbstractExpression parsePriority2() {
+    private AbstractExpression parsePriority3() throws ParseException {
+        // System.err.println("parsePriority3(" + expr.substring() + ')');
+        AbstractExpression result = parsePriority4();
+
+        skipWhitespaces();
+        while (expr.hasNextChar()) {
+            if (expr.skipIfMatch("**")) {
+                result = new CheckedPow(result, parsePriority4());
+            } else if (expr.skipIfMatch("//")) {
+                result = new CheckedLog(result, parsePriority4());
+            } else {
+                break;
+            }
+            skipWhitespaces();
+        }
+
+        return result;
+    }
+
+    private AbstractExpression parsePriority2() throws ParseException {
+        // System.err.println("parsePriority2(" + expr.substring() + ')');
         AbstractExpression result = parsePriority3();
 
         skipWhitespaces();
         while (expr.hasNextChar()) {
             if (expr.skipIfMatch('*')) {
-                result = new Multiply(result, parsePriority3());
+                result = new CheckedMultiply(result, parsePriority3());
             } else if (expr.skipIfMatch('/')) {
-                result = new Divide(result, parsePriority3());
+                result = new CheckedDivide(result, parsePriority3());
             } else {
                 break;
             }
@@ -88,15 +122,16 @@ public class ExpressionParser implements Parser {
         return result;
     }
 
-    private AbstractExpression parsePriority1() {
+    private AbstractExpression parsePriority1() throws ParseException {
+        // System.err.println("parsePriority1(" + expr.substring() + ')');
         AbstractExpression result = parsePriority2();
 
         skipWhitespaces();
         while (expr.hasNextChar()) {
             if (expr.skipIfMatch('+')) {
-                result = new Add(result, parsePriority2());
+                result = new CheckedAdd(result, parsePriority2());
             } else if (expr.skipIfMatch('-')) {
-                result = new Subtract(result, parsePriority2());
+                result = new CheckedSubtract(result, parsePriority2());
             } else {
                 break;
             }
@@ -106,7 +141,8 @@ public class ExpressionParser implements Parser {
         return result;
     }
 
-    private AbstractExpression parsePriority0() {
+    private AbstractExpression parsePriority0() throws ParseException {
+        // System.err.println("parsePriority0(" + expr.substring() + ')');
         AbstractExpression result = parsePriority1();
 
         skipWhitespaces();
@@ -131,8 +167,12 @@ public class ExpressionParser implements Parser {
     }
 
     @Override
-    public AbstractExpression parse(String expression) {
-        this.expr = new StringStreamer(expression);
-        return parsePriority0();
+    public AbstractExpression parse(String expression) throws ParseException {
+        this.expr = new CheckedStringStreamer(expression);
+        AbstractExpression result = parsePriority0();
+        if (expr.hasNextChar()) {
+            throw new ParseException("Expected end of stream after \"" + result + "\"");
+        }
+        return result;
     }
 }

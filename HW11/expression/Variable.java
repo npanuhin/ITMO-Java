@@ -16,7 +16,7 @@ public class Variable implements AbstractExpression {
 
     @Override
     public int getPriority() {
-        return 3;
+        return 4;
     }
 
     @Override

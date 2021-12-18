@@ -52,7 +52,7 @@ def main():
     removeFromKgeorgiy("java-solutions")
     removeFromKgeorgiy("qf-solutions")
 
-    [copy(mkpath("MyClasses", file), ("java-solutions")) for file in listdir_java("MyClasses")]
+    [copy(mkpath("MyClasses", file), ("java-solutions", "myclasses")) for file in listdir_java("MyClasses")]
 
     [copy(mkpath("HW2", file), ("java-solutions")) for file in listdir_java("HW2")]
 
@@ -75,6 +75,8 @@ def main():
     [copy(mkpath("HW11", "expression", file), ("java-solutions", "expression")) for file in listdir_java("HW11", "expression")]
 
     [copy(mkpath("HW12", "expression", "parser", file), ("java-solutions", "expression", "parser")) for file in listdir_java("HW12", "expression", "parser")]
+
+    [copy(mkpath("HW13", "expression", "exceptions", file), ("java-solutions", "expression", "exceptions")) for file in listdir_java("HW13", "expression", "exceptions")]
 
 
 if __name__ == "__main__":

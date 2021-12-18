@@ -6,6 +6,7 @@ public interface AbstractStreamer {
     boolean hasNextChar();
 
     boolean skipIfMatch(char c);
+    boolean skipIfMatch(String c);
     void expect(char c);
 
     // default void expect(String s) {
@@ -13,4 +14,6 @@ public interface AbstractStreamer {
     //         expect(s.charAt(i));
     //     }
     // }
+
+    String substring();
 }

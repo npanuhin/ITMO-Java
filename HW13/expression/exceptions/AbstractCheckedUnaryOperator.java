@@ -1,14 +1,16 @@
-package expression;
+package expression.exceptions;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import expression.*;
 
-public abstract class AbstractUnaryOperator implements AbstractExpression {
+
+public abstract class AbstractCheckedUnaryOperator implements AbstractExpression {
     protected final AbstractExpression content;
     private String cachedToString = null, cachedToMiniString = null;
 
-    public AbstractUnaryOperator(AbstractExpression content) {
+    public AbstractCheckedUnaryOperator(AbstractExpression content) {
         this.content = content;
     }
 
@@ -69,7 +71,7 @@ public abstract class AbstractUnaryOperator implements AbstractExpression {
     @Override
     public boolean equals(Object obj) {
         if (obj != null && getClass() == obj.getClass()) {
-            return content.equals(((AbstractUnaryOperator) obj).content);
+            return content.equals(((AbstractCheckedUnaryOperator) obj).content);
         }
         return false;
     }

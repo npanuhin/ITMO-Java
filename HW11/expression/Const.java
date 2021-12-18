@@ -19,7 +19,7 @@ public class Const implements AbstractExpression {
 
     @Override
     public int getPriority() {
-        return 3;
+        return 4;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package expression.parser;
 
 public class StringStreamer implements AbstractStreamer {
-    private final String content;
-    private int pos = 0;
+    protected final String content;
+    protected int pos = 0;
 
     public StringStreamer(String content) {
         this.content = content;
@@ -38,4 +38,20 @@ public class StringStreamer implements AbstractStreamer {
         }
         return false;
     }
+
+    @Override
+    public boolean skipIfMatch(String s) {
+        for (int i = 0; i < s.length(); ++i) {
+            if (content.charAt(pos + i) != s.charAt(i)) {
+                return false;
+            }
+        }
+        pos += s.length();
+        return true;
+    }
+
+    // @Override
+    // public String substring() {
+    //     return content.substring(pos);
+    // }
 }

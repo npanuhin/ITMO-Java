@@ -1,7 +1,7 @@
 @echo off
 cls
 "../src/clear_cache" && ^
-xcopy /s /y /q "..\tests\java\base" "C:\Cache\.src\" > nul && ^
+javac -cp "C:\Cache" -d "C:\Cache" "..\tests\java\base\*.java" && ^
 xcopy /s /y /q "..\tests\java\expression\common\" "C:\Cache\.src\" > nul && ^
 xcopy /s /y /q "..\tests\java\expression\" "C:\Cache\.src\" > nul && ^
 xcopy /s /y /q "..\tests\java\expression\parser\" "C:\Cache\.src\" > nul && ^

@@ -21,6 +21,6 @@ public class TrailingZeros extends AbstractUnaryOperator {
 
     @Override
     protected BigDecimal count(BigDecimal a) {
-        throw new UnsupportedOperationException("number of trailing zeros is not defined for BigDecimal");
+        throw new UnsupportedOperationException("Number of trailing zeros is not defined for BigDecimal");
     }
 }

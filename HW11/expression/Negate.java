@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 
-public class Minus extends AbstractUnaryOperator {
-    public Minus(AbstractExpression content) {
+public class Negate extends AbstractUnaryOperator {
+    public Negate(AbstractExpression content) {
         super(content);
     }
 
