@@ -1,33 +1,11 @@
 package expression.exceptions;
 
-import java.math.BigDecimal;
-
 import expression.*;
 
 
-public class CheckedDivide extends AbstractCheckedBinaryOperator {
+public class CheckedDivide extends Divide {
     public CheckedDivide(AbstractExpression left, AbstractExpression right) {
         super(left, right);
-    }
-
-    @Override
-    public int getPriority() {
-        return 2;
-    }
-
-    @Override
-    public boolean isAssociative() {
-        return false;
-    }
-
-    @Override
-    public boolean alwaysNeedsWrap() {
-        return true;
-    }
-
-    @Override
-    protected String getOperator() {
-        return "/";
     }
 
     @Override
@@ -36,10 +14,5 @@ public class CheckedDivide extends AbstractCheckedBinaryOperator {
             throw new OverflowException(String.format("%d / %d", a, b));
         }
         return a / b;
-    }
-
-    @Override
-    protected BigDecimal count(BigDecimal a, BigDecimal b) {
-        return a.divide(b);
     }
 }

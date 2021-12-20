@@ -13,6 +13,6 @@ public class Main {
 
         // System.out.println(parser.parse(Integer.toString(0) + " + " + Integer.toString(Integer.MAX_VALUE)).evaluate(0));
 
-        System.out.println(parser.parse("(2 ** 3)").toString());
+        System.out.println(parser.parse("a").toString());
     }
 }

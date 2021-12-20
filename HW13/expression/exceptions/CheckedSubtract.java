@@ -1,33 +1,11 @@
 package expression.exceptions;
 
-import java.math.BigDecimal;
-
 import expression.*;
 
 
-public class CheckedSubtract extends AbstractCheckedBinaryOperator {
+public class CheckedSubtract extends Subtract {
     public CheckedSubtract(AbstractExpression left, AbstractExpression right) {
         super(left, right);
-    }
-
-    @Override
-    public int getPriority() {
-        return 1;
-    }
-
-    @Override
-    public boolean isAssociative() {
-        return false;
-    }
-
-    @Override
-    public boolean alwaysNeedsWrap() {
-        return false;
-    }
-
-    @Override
-    protected String getOperator() {
-        return "-";
     }
 
     @Override
@@ -39,10 +17,5 @@ public class CheckedSubtract extends AbstractCheckedBinaryOperator {
             throw new OverflowException(String.format("%d - %d", a, b));
         }
         return a - b;
-    }
-
-    @Override
-    protected BigDecimal count(BigDecimal a, BigDecimal b) {
-        return a.subtract(b);
     }
 }

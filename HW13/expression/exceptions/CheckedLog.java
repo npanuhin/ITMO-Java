@@ -1,33 +1,11 @@
 package expression.exceptions;
 
-import java.math.BigDecimal;
-
 import expression.*;
 
 
-public class CheckedLog extends AbstractBinaryOperator {
+public class CheckedLog extends Log {
     public CheckedLog(AbstractExpression left, AbstractExpression right) {
         super(left, right);
-    }
-
-    @Override
-    public int getPriority() {
-        return 3;
-    }
-
-    @Override
-    public boolean isAssociative() {
-        return false;
-    }
-
-    @Override
-    public boolean alwaysNeedsWrap() {
-        return false;
-    }
-
-    @Override
-    protected String getOperator() {
-        return "//";
     }
 
     @Override
@@ -46,10 +24,5 @@ public class CheckedLog extends AbstractBinaryOperator {
             res++;
         }
         return res;
-    }
-
-    @Override
-    protected BigDecimal count(BigDecimal a, BigDecimal b) {
-        throw new UnsupportedOperationException("Log is not defined for BigDecimal");
     }
 }

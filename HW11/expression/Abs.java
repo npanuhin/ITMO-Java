@@ -3,23 +3,23 @@ package expression;
 import java.math.BigDecimal;
 
 
-public class Negate extends AbstractUnaryOperator {
-    public Negate(AbstractExpression content) {
+public class Abs extends AbstractUnaryOperator {
+    public Abs(AbstractExpression content) {
         super(content);
     }
 
     @Override
     public String getOperator() {
-        return "-";
+        return "abs";
     }
 
     @Override
     protected int count(int a) {
-        return -a;
+        return a < 0 ? -a : a;
     }
 
     @Override
     protected BigDecimal count(BigDecimal a) {
-        return a.negate();
+        return a.abs();
     }
 }

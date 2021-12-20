@@ -1,33 +1,11 @@
 package expression.exceptions;
 
-import java.math.BigDecimal;
-
 import expression.*;
 
 
-public class CheckedMultiply extends AbstractCheckedBinaryOperator {
+public class CheckedMultiply extends Multiply {
     public CheckedMultiply(AbstractExpression left, AbstractExpression right) {
         super(left, right);
-    }
-
-    @Override
-    public int getPriority() {
-        return 2;
-    }
-
-    @Override
-    public boolean isAssociative() {
-        return true;
-    }
-
-    @Override
-    public boolean alwaysNeedsWrap() {
-        return false;
-    }
-
-    @Override
-    protected String getOperator() {
-        return "*";
     }
 
     protected static void checkMultiplication(int a, int b) throws OverflowException {
@@ -48,10 +26,5 @@ public class CheckedMultiply extends AbstractCheckedBinaryOperator {
     protected int count(int a, int b) throws OverflowException {
         checkMultiplication(a, b);
         return a * b;
-    }
-
-    @Override
-    protected BigDecimal count(BigDecimal a, BigDecimal b) {
-        return a.multiply(b);
     }
 }

@@ -1,83 +1,18 @@
 package expression.exceptions;
 
-import java.math.BigDecimal;
-import java.util.Objects;
-
 import expression.*;
 
 
-public abstract class AbstractCheckedUnaryOperator implements AbstractExpression {
-    protected final AbstractExpression content;
-    private String cachedToString = null, cachedToMiniString = null;
+public abstract class AbstractCheckedUnaryOperator extends AbstractUnaryOperator {
 
     public AbstractCheckedUnaryOperator(AbstractExpression content) {
-        this.content = content;
+        super(content);
     }
 
-    @Override
-    public int getPriority() {
-        return 4;
-    }
+    protected abstract int count(int content) throws OverflowException;
 
     @Override
-    public boolean isAssociative() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException("Associativity is not defined for unary operators");
-    }
-
-    @Override
-    public boolean alwaysNeedsWrap() {
-        return false;
-    }
-
-    protected abstract String getOperator();
-    protected abstract int count(int content);
-    protected abstract BigDecimal count(BigDecimal content);
-
-    @Override
-    public int evaluate(int x) {
+    public int evaluate(int x) throws OverflowException {
         return count(content.evaluate(x));
-    }
-
-    @Override
-    public int evaluate(int x, int y, int z) {
-        return count(content.evaluate(x, y, z));
-    }
-
-    @Override
-    public BigDecimal evaluate(BigDecimal x) {
-        return count(content.evaluate(x));
-    }
-
-    @Override
-    public String toString() {
-        if (cachedToString == null) {
-            cachedToString = getOperator() + '(' + content.toString() + ')';
-        }
-        return cachedToString;
-    }
-
-    @Override
-    public String toMiniString() {
-        if (cachedToMiniString == null) {
-            if (this.getPriority() > content.getPriority()) {
-                cachedToMiniString = getOperator() + '(' + content.toMiniString() + ')';
-            } else {
-                cachedToMiniString = getOperator() + ' ' + content.toMiniString();
-            }
-        }
-        return cachedToMiniString;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj != null && getClass() == obj.getClass()) {
-            return content.equals(((AbstractCheckedUnaryOperator) obj).content);
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(this.getClass()) + 17 * content.hashCode();
     }
 }

@@ -32,7 +32,7 @@ public class StringStreamer implements AbstractStreamer {
 
     @Override
     public boolean skipIfMatch(char c) {
-        if (content.charAt(pos) == c) {
+        if (hasNextChar() && content.charAt(pos) == c) {
             pos++;
             return true;
         }
@@ -41,6 +41,9 @@ public class StringStreamer implements AbstractStreamer {
 
     @Override
     public boolean skipIfMatch(String s) {
+        if (content.length() < pos + s.length()) {
+            return false;
+        }
         for (int i = 0; i < s.length(); ++i) {
             if (content.charAt(pos + i) != s.charAt(i)) {
                 return false;
@@ -50,8 +53,8 @@ public class StringStreamer implements AbstractStreamer {
         return true;
     }
 
-    // @Override
-    // public String substring() {
-    //     return content.substring(pos);
-    // }
+    @Override
+    public String substring() {
+        return content.substring(pos);
+    }
 }

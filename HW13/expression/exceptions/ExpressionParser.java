@@ -54,12 +54,13 @@ public class ExpressionParser implements Parser {
             return result;
         }
 
-        if (expr.skipIfMatch('l')) {
-            expr.expect('0');
+        if (expr.skipIfMatch("abs")) {
+            return new CheckedAbs(parsePriority4());
+
+        } else if (expr.skipIfMatch("l0")) {
             return new LeadingZeros(parsePriority4());
 
-        } else if (expr.skipIfMatch('t')) {
-            expr.expect('0');
+        } else if (expr.skipIfMatch("t0")) {
             return new TrailingZeros(parsePriority4());
 
         } else if (expr.skipIfMatch('-')) {
@@ -147,15 +148,13 @@ public class ExpressionParser implements Parser {
 
         skipWhitespaces();
         while (expr.hasNextChar()) {
-            if (expr.skipIfMatch('>')) {
-                expr.expect('>');
+            if (expr.skipIfMatch(">>")) {
                 if (expr.skipIfMatch('>')) {
                     result = new RightArithmeticBitshift(result, parsePriority1());
                 } else {
                     result = new RightBitshift(result, parsePriority1());
                 }
-            } else if (expr.skipIfMatch('<')) {
-                expr.expect('<');
+            } else if (expr.skipIfMatch("<<")) {
                 result = new LeftBitshift(result, parsePriority1());
             } else {
                 break;
