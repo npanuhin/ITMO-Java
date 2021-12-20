@@ -1,11 +1,33 @@
 package expression.exceptions;
 
-import expression.*;
+import java.math.BigDecimal;
+
+import expression.AbstractExpression;
 
 
-public class CheckedPow extends Pow {
+public class CheckedPow extends AbstractCheckedBinaryOperator {
     public CheckedPow(AbstractExpression left, AbstractExpression right) {
         super(left, right);
+    }
+
+    @Override
+    public int getPriority() {
+        return 3;
+    }
+
+    @Override
+    public boolean isAssociative() {
+        return false;
+    }
+
+    @Override
+    public boolean alwaysNeedsWrap() {
+        return false;
+    }
+
+    @Override
+    protected String getOperator() {
+        return "**";
     }
 
     @Override
@@ -27,14 +49,26 @@ public class CheckedPow extends Pow {
         }
 
         try {
-            int result = a;
-            for (int i = 2; i <= b; ++i) {
-                CheckedMultiply.checkMultiplication(result, a);
-                result *= a;
+            int result = 1;
+            while (b != 0) {
+                if ((b & 1) == 1) {
+                    CheckedMultiply.checkMultiplication(result, a);
+                    result *= a;
+                    b--;
+                } else {
+                    CheckedMultiply.checkMultiplication(a, a);
+                    a *= a;
+                    b >>= 1;
+                }
             }
             return result;
         } catch (OverflowException e) {
             throw new OverflowException(String.format("%d ** %d", a, b));
         }
+    }
+
+    @Override
+    protected BigDecimal count(BigDecimal a, BigDecimal b) {
+        return a.pow(b.intValue());
     }
 }

@@ -1,6 +1,5 @@
 package expression.exceptions;
 
-import java.util.HashSet;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -39,7 +38,6 @@ public class ExpressionParser implements Parser {
     }
 
     private AbstractExpression parsePriority4() throws ParseException {
-        // System.err.println("parsePriority4(" + expr.substring() + ')');
         skipWhitespaces();
 
         if (!expr.hasNextChar()) {
@@ -55,6 +53,9 @@ public class ExpressionParser implements Parser {
         }
 
         if (expr.skipIfMatch("abs")) {
+            if (!expr.hasNextChar() || !(Character.isWhitespace(expr.curChar()) || expr.curChar() == '(')) {
+                throw new ParseException("Expected whitespace or '(' after Abs");
+            }
             return new CheckedAbs(parsePriority4());
 
         } else if (expr.skipIfMatch("l0")) {
@@ -65,7 +66,7 @@ public class ExpressionParser implements Parser {
 
         } else if (expr.skipIfMatch('-')) {
             if (!expr.hasNextChar()) {
-                throw new ParseException("Unexpected end of stream, expected Const or any Expression after \"-\"");
+                throw new ParseException("Unexpected end of stream, expected Const or any Expression after '-'");
             } else if (isDigit(expr.curChar())) {
                 return new Const(parseInt(true));
             } else {
@@ -80,13 +81,12 @@ public class ExpressionParser implements Parser {
 
         } else {
             throw new ParseException(
-                "Parser can not identify expression starting with char: \"" + expr.curChar() + "\""
+                "Parser can not identify expression starting with char '" + expr.curChar() + "'"
             );
         }
     }
 
     private AbstractExpression parsePriority3() throws ParseException {
-        // System.err.println("parsePriority3(" + expr.substring() + ')');
         AbstractExpression result = parsePriority4();
 
         skipWhitespaces();
@@ -105,7 +105,6 @@ public class ExpressionParser implements Parser {
     }
 
     private AbstractExpression parsePriority2() throws ParseException {
-        // System.err.println("parsePriority2(" + expr.substring() + ')');
         AbstractExpression result = parsePriority3();
 
         skipWhitespaces();
@@ -124,7 +123,6 @@ public class ExpressionParser implements Parser {
     }
 
     private AbstractExpression parsePriority1() throws ParseException {
-        // System.err.println("parsePriority1(" + expr.substring() + ')');
         AbstractExpression result = parsePriority2();
 
         skipWhitespaces();
@@ -143,7 +141,6 @@ public class ExpressionParser implements Parser {
     }
 
     private AbstractExpression parsePriority0() throws ParseException {
-        // System.err.println("parsePriority0(" + expr.substring() + ')');
         AbstractExpression result = parsePriority1();
 
         skipWhitespaces();

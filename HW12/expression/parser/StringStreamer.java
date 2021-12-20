@@ -53,8 +53,8 @@ public class StringStreamer implements AbstractStreamer {
         return true;
     }
 
-    @Override
-    public String substring() {
-        return content.substring(pos);
-    }
+    // @Override
+    // public String substring() {
+    //     return content.substring(pos);
+    // }
 }

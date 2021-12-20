@@ -1,11 +1,18 @@
 package expression.exceptions;
 
-import expression.*;
+import java.math.BigDecimal;
+
+import expression.AbstractExpression;
 
 
-public class CheckedAbs extends Abs {
+public class CheckedAbs extends AbstractCheckedUnaryOperator {
     public CheckedAbs(AbstractExpression content) {
         super(content);
+    }
+
+    @Override
+    public String getOperator() {
+        return "abs";
     }
 
     @Override
@@ -14,5 +21,10 @@ public class CheckedAbs extends Abs {
             throw new OverflowException(String.format("abs(%d)", a));
         }
         return a < 0 ? -a : a;
+    }
+
+    @Override
+    protected BigDecimal count(BigDecimal a) {
+        return a.abs();
     }
 }

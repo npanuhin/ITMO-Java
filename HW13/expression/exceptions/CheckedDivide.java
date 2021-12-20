@@ -1,18 +1,48 @@
 package expression.exceptions;
 
-import expression.*;
+import java.math.BigDecimal;
+
+import expression.AbstractExpression;
 
 
-public class CheckedDivide extends Divide {
+public class CheckedDivide extends AbstractCheckedBinaryOperator {
     public CheckedDivide(AbstractExpression left, AbstractExpression right) {
         super(left, right);
     }
 
     @Override
+    public int getPriority() {
+        return 2;
+    }
+
+    @Override
+    public boolean isAssociative() {
+        return false;
+    }
+
+    @Override
+    public boolean alwaysNeedsWrap() {
+        return true;
+    }
+
+    @Override
+    protected String getOperator() {
+        return "/";
+    }
+
+    @Override
     protected int count(int a, int b) throws OverflowException {
         if (a == Integer.MIN_VALUE && b == -1) {
-            throw new OverflowException(String.format("%d / %d", a, b));
+            throwOverflowException();
+        }
+        if (b == 0) {
+            throw new DivisionByZeroException(String.format("%d / 0", a));
         }
         return a / b;
+    }
+
+    @Override
+    protected BigDecimal count(BigDecimal a, BigDecimal b) {
+        return a.divide(b);
     }
 }

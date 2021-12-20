@@ -1,6 +1,7 @@
 package expression.exceptions;
 
-import expression.*;
+import expression.AbstractUnaryOperator;
+import expression.AbstractExpression;
 
 
 public abstract class AbstractCheckedUnaryOperator extends AbstractUnaryOperator {
@@ -14,5 +15,9 @@ public abstract class AbstractCheckedUnaryOperator extends AbstractUnaryOperator
     @Override
     public int evaluate(int x) throws OverflowException {
         return count(content.evaluate(x));
+    }
+
+    protected void throwOverflowException() {
+        throw new OverflowException(String.format(getOperator() + "(%d)", content));
     }
 }

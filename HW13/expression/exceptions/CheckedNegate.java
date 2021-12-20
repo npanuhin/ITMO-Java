@@ -1,11 +1,18 @@
 package expression.exceptions;
 
-import expression.*;
+import java.math.BigDecimal;
+
+import expression.AbstractExpression;
 
 
-public class CheckedNegate extends Negate {
+public class CheckedNegate extends AbstractCheckedUnaryOperator {
     public CheckedNegate(AbstractExpression content) {
         super(content);
+    }
+
+    @Override
+    public String getOperator() {
+        return "-";
     }
 
     @Override
@@ -14,5 +21,10 @@ public class CheckedNegate extends Negate {
             throw new OverflowException(String.format("-%d", a));
         }
         return -a;
+    }
+
+    @Override
+    protected BigDecimal count(BigDecimal a) {
+        return a.negate();
     }
 }
