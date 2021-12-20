@@ -48,10 +48,10 @@ public class Scanner implements AutoCloseable {
     }
 
 
-    public Scanner(StringReader in) throws IOException {
+    public Scanner(StringReader in) {
         this.reader = in;
     }
-    public Scanner(StringReader in, Delimiter delimiter) throws IOException {
+    public Scanner(StringReader in, Delimiter delimiter) {
         this.reader = in;
         this.delimiter = delimiter;
     }

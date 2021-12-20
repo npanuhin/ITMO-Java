@@ -78,6 +78,8 @@ def main():
 
     [copy(mkpath("HW13", "expression", "exceptions", file), ("java-solutions", "expression", "exceptions")) for file in listdir_java("HW13", "expression", "exceptions")]
 
+    [copy(mkpath("HW13", "Main.java"), ("java-solutions"))]
+
 
 if __name__ == "__main__":
     main()

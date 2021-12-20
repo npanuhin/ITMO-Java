@@ -7,6 +7,7 @@ xcopy /s /y /q "..\tests\java\expression\" "C:\Cache\.src\" > nul && ^
 xcopy /s /y /q "..\tests\java\expression\parser\" "C:\Cache\.src\" > nul && ^
 xcopy /s /y /q "..\HW11\expression\" "C:\Cache\.src\" > nul && ^
 xcopy /s /y /q "expression\parser\" "C:\Cache\.src\" > nul && ^
+xcopy /s /y /q "..\myclasses\" "C:\Cache\.src\" > nul && ^
 copy /y "Main.java" "C:\Cache\.src\" > nul && ^
 javac -cp "C:\Cache" -d "C:\Cache" "C:\Cache\.src\*.java" && ^
 java -cp "C:\Cache" Main
