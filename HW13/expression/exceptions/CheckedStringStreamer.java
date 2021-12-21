@@ -9,7 +9,7 @@ public class CheckedStringStreamer extends StringStreamer {
     }
 
     @Override
-    public void expect(char c) {
+    public void expect(final char c) {
         if (!hasNextChar() || getChar() != c) {
             throw new ParseException("Expected \"" + c + "\" on position " + pos + ", got smth else");
         }

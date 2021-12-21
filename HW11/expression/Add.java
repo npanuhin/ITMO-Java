@@ -29,12 +29,12 @@ public class Add extends AbstractBinaryOperator {
     }
 
     @Override
-    protected int count(int a, int b) {
+    protected int count(final int a, final int b) {
         return a + b;
     }
 
     @Override
-    protected BigDecimal count(BigDecimal a, BigDecimal b) {
+    protected BigDecimal count(final BigDecimal a, final BigDecimal b) {
         return a.add(b);
     }
 }

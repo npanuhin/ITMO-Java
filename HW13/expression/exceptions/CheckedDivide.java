@@ -31,7 +31,7 @@ public class CheckedDivide extends AbstractCheckedBinaryOperator {
     }
 
     @Override
-    protected int count(int a, int b) throws OverflowException {
+    protected int count(final int a, final int b) throws OverflowException {
         if (a == Integer.MIN_VALUE && b == -1) {
             throwOverflowException();
         }
@@ -42,7 +42,7 @@ public class CheckedDivide extends AbstractCheckedBinaryOperator {
     }
 
     @Override
-    protected BigDecimal count(BigDecimal a, BigDecimal b) {
+    protected BigDecimal count(final BigDecimal a, final BigDecimal b) {
         return a.divide(b);
     }
 }

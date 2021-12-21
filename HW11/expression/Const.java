@@ -38,17 +38,17 @@ public class Const implements AbstractExpression {
     }
 
     @Override
-    public int evaluate(int x) {
+    public int evaluate(final int x) {
         return value;
     }
 
     @Override
-    public int evaluate(int x, int y, int z) {
+    public int evaluate(final int x, final int y, final int z) {
         return value;
     }
 
     @Override
-    public BigDecimal evaluate(BigDecimal x) {
+    public BigDecimal evaluate(final BigDecimal x) {
         return decimalValue == null ? new BigDecimal(value) : decimalValue;
     }
 

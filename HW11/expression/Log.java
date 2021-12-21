@@ -29,12 +29,12 @@ public class Log extends AbstractBinaryOperator {
     }
 
     @Override
-    protected int count(int a, int b) {
+    protected int count(final int a, final int b) {
         return (int) (Math.log(a) / Math.log(b));
     }
 
     @Override
-    protected BigDecimal count(BigDecimal a, BigDecimal b) {
+    protected BigDecimal count(final BigDecimal a, final BigDecimal b) {
         throw new UnsupportedOperationException("Log is not defined for BigDecimal");
     }
 }

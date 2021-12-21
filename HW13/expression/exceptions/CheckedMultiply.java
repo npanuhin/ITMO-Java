@@ -30,8 +30,8 @@ public class CheckedMultiply extends AbstractCheckedBinaryOperator {
         return "*";
     }
 
-    protected static void checkMultiplication(int a, int b) throws OverflowException {
-        int maximum = Integer.signum(a) == Integer.signum(b) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+    protected static void checkMultiplication(final int a, final int b) throws OverflowException {
+        final int maximum = Integer.signum(a) == Integer.signum(b) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
 
         if (a == -1 && b == Integer.MIN_VALUE) {
             throw new OverflowException(String.format("%d * %d", a, b));
@@ -45,13 +45,13 @@ public class CheckedMultiply extends AbstractCheckedBinaryOperator {
     }
 
     @Override
-    protected int count(int a, int b) throws OverflowException {
+    protected int count(final int a, final int b) throws OverflowException {
         checkMultiplication(a, b);
         return a * b;
     }
 
     @Override
-    protected BigDecimal count(BigDecimal a, BigDecimal b) {
+    protected BigDecimal count(final BigDecimal a, final BigDecimal b) {
         return a.multiply(b);
     }
 }

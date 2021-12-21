@@ -14,12 +14,12 @@ public class Negate extends AbstractUnaryOperator {
     }
 
     @Override
-    protected int count(int a) {
+    protected int count(final int a) {
         return -a;
     }
 
     @Override
-    protected BigDecimal count(BigDecimal a) {
+    protected BigDecimal count(final BigDecimal a) {
         return a.negate();
     }
 }

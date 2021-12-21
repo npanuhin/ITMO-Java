@@ -10,7 +10,7 @@ public class ExpressionParser implements Parser {
     private static final Set<Character> VARIABLES = Set.of('x', 'y', 'z');
     private AbstractStreamer expr;
 
-    private boolean isDigit(char c) {
+    private boolean isDigit(final char c) {
         // return Character.isDigit(c);
         return '0' <= c && c <= '9';
     }
@@ -36,7 +36,7 @@ public class ExpressionParser implements Parser {
         skipWhitespaces();
 
         if (expr.skipIfMatch('(')) {
-            AbstractExpression result = parsePriority0();
+            final AbstractExpression result = parsePriority0();
             expr.expect(')');
             return result;
         }

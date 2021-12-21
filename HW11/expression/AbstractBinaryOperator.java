@@ -18,24 +18,24 @@ public abstract class AbstractBinaryOperator implements AbstractExpression {
     protected abstract BigDecimal count(BigDecimal left, BigDecimal right);
 
     @Override
-    public int evaluate(int x) {
+    public int evaluate(final int x) {
         return count(left.evaluate(x), right.evaluate(x));
     }
 
     @Override
-    public int evaluate(int x, int y, int z) {
+    public int evaluate(final int x, final int y, final int z) {
         return count(left.evaluate(x, y, z), right.evaluate(x, y, z));
     }
 
     @Override
-    public BigDecimal evaluate(BigDecimal x) {
+    public BigDecimal evaluate(final BigDecimal x) {
         return count(left.evaluate(x), right.evaluate(x));
     }
 
     @Override
     public String toString() {
         if (cachedToString == null) {
-            StringBuilder result = new StringBuilder();
+            final StringBuilder result = new StringBuilder();
 
             result.append('(').append(left).append(' ').append(getOperator()).append(' ').append(right).append(')');
 
@@ -47,7 +47,7 @@ public abstract class AbstractBinaryOperator implements AbstractExpression {
     @Override
     public String toMiniString() {
         if (cachedToMiniString == null) {
-            StringBuilder result = new StringBuilder();
+            final StringBuilder result = new StringBuilder();
 
             // Adding left operand
             addMiniExprToBuilder(result, left, (this.getPriority() > left.getPriority()));
@@ -74,7 +74,7 @@ public abstract class AbstractBinaryOperator implements AbstractExpression {
         return cachedToMiniString;
     }
 
-    private void addMiniExprToBuilder(StringBuilder builder, AbstractExpression expr, boolean isWrapped) {
+    private void addMiniExprToBuilder(final StringBuilder builder, final AbstractExpression expr,  final boolean isWrapped) {
         if (isWrapped) {
             builder.append('(');
         }

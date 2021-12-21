@@ -32,17 +32,17 @@ public abstract class AbstractUnaryOperator implements AbstractExpression {
     protected abstract BigDecimal count(BigDecimal content);
 
     @Override
-    public int evaluate(int x) {
+    public int evaluate(final int x) {
         return count(content.evaluate(x));
     }
 
     @Override
-    public int evaluate(int x, int y, int z) {
+    public int evaluate(final int x, final int y, final int z) {
         return count(content.evaluate(x, y, z));
     }
 
     @Override
-    public BigDecimal evaluate(BigDecimal x) {
+    public BigDecimal evaluate(final BigDecimal x) {
         return count(content.evaluate(x));
     }
 

@@ -31,7 +31,7 @@ public class CheckedAdd extends AbstractCheckedBinaryOperator {
     }
 
     @Override
-    protected int count(int a, int b) {
+    protected int count(final int a, final int b) {
         if (
             (b > 0 && Integer.MAX_VALUE - b < a) ||
             (b < 0 && Integer.MIN_VALUE - b > a)
@@ -42,7 +42,7 @@ public class CheckedAdd extends AbstractCheckedBinaryOperator {
     }
 
     @Override
-    protected BigDecimal count(BigDecimal a, BigDecimal b) {
+    protected BigDecimal count(final BigDecimal a, final BigDecimal b) {
         return a.add(b);
     }
 }

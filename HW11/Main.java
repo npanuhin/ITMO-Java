@@ -7,7 +7,7 @@ import myclasses.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Add task = new Add(
+        final Add task = new Add(
             new Subtract(
                 new Multiply(
                     new Variable("x"),

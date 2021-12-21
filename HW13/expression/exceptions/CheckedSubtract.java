@@ -31,7 +31,7 @@ public class CheckedSubtract extends AbstractCheckedBinaryOperator {
     }
 
     @Override
-    protected int count(int a, int b) throws OverflowException {
+    protected int count(final int a, final int b) throws OverflowException {
         if (
             (b > 0 && Integer.MIN_VALUE + b > a) ||
             (b < 0 && Integer.MAX_VALUE + b < a)
@@ -42,7 +42,7 @@ public class CheckedSubtract extends AbstractCheckedBinaryOperator {
     }
 
     @Override
-    protected BigDecimal count(BigDecimal a, BigDecimal b) {
+    protected BigDecimal count(final BigDecimal a, final BigDecimal b) {
         return a.subtract(b);
     }
 }

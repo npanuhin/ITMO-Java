@@ -31,7 +31,7 @@ public class CheckedPow extends AbstractCheckedBinaryOperator {
     }
 
     @Override
-    protected int count(int a, int b) {
+    protected int count(final int a, final int b) {
         if (b < 0) {
             throw new UnsupportedOperationException("0 ^ x, whree x < 0 is not defined");
         }
@@ -49,16 +49,16 @@ public class CheckedPow extends AbstractCheckedBinaryOperator {
         }
 
         try {
-            int result = 1;
-            while (b != 0) {
-                if ((b & 1) == 1) {
-                    CheckedMultiply.checkMultiplication(result, a);
-                    result *= a;
-                    b--;
+            int result = 1, base = a, power = b;
+            while (power != 0) {
+                if ((power & 1) == 1) {
+                    CheckedMultiply.checkMultiplication(result, base);
+                    result *= base;
+                    power--;
                 } else {
-                    CheckedMultiply.checkMultiplication(a, a);
-                    a *= a;
-                    b >>= 1;
+                    CheckedMultiply.checkMultiplication(base, base);
+                    base *= base;
+                    power >>= 1;
                 }
             }
             return result;

@@ -16,7 +16,7 @@ public class CheckedAbs extends AbstractCheckedUnaryOperator {
     }
 
     @Override
-    protected int count(int a) throws OverflowException {
+    protected int count(final int a) throws OverflowException {
         if (a == Integer.MIN_VALUE) {
             throw new OverflowException(String.format("abs(%d)", a));
         }
@@ -24,7 +24,7 @@ public class CheckedAbs extends AbstractCheckedUnaryOperator {
     }
 
     @Override
-    protected BigDecimal count(BigDecimal a) {
+    protected BigDecimal count(final BigDecimal a) {
         return a.abs();
     }
 }

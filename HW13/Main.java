@@ -10,9 +10,9 @@ import myclasses.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        ExpressionParser parser = new ExpressionParser();
+        final ExpressionParser parser = new ExpressionParser();
 
-        // AbstractExpression task = parser.parse("1000000*x*x*x*x*x/(x-1)");
+        // final AbstractExpression task = parser.parse("1000000*x*x*x*x*x/(x-1)");
         // for (int i = 0; i <= 10; ++i)  {
         //     try {
         //         System.out.println(task.evaluate(i));
@@ -24,8 +24,8 @@ public class Main {
         // }
 
         try {
-            Scanner scanner = new Scanner(System.in);
-            AbstractExpression task = parser.parse(scanner.nextLine());
+            final Scanner scanner = new Scanner(System.in);
+            final AbstractExpression task = parser.parse(scanner.nextLine());
             scanner.skipLine();
             try {
                 System.out.println(task.evaluate(scanner.nextInt()));

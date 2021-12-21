@@ -31,7 +31,7 @@ public class CheckedLog extends AbstractCheckedBinaryOperator {
     }
 
     @Override
-    protected int count(int a, int b) {
+    protected int count(final int a, final int b) {
         if (a <= 0 ) {
             throw new UnsupportedOperationException("Log(a, b) is not defined when a <= 0");
         }
@@ -40,9 +40,9 @@ public class CheckedLog extends AbstractCheckedBinaryOperator {
             throw new UnsupportedOperationException("Log(a, b) is not defined when b <= 0 or b = 1");
         }
 
-        int res = 0;
-        while (a >= b) {
-            a /= b;
+        int res = 0, x = a;
+        while (x >= b) {
+            x /= b;
             res++;
         }
         return res;

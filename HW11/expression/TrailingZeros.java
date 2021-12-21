@@ -14,12 +14,12 @@ public class TrailingZeros extends AbstractUnaryOperator {
     }
 
     @Override
-    protected int count(int a) {
+    protected int count(final int a) {
         return Integer.numberOfTrailingZeros(a);
     }
 
     @Override
-    protected BigDecimal count(BigDecimal a) {
+    protected BigDecimal count(final BigDecimal a) {
         throw new UnsupportedOperationException("Number of trailing zeros is not defined for BigDecimal");
     }
 }

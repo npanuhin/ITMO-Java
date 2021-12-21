@@ -13,7 +13,7 @@ public abstract class AbstractCheckedUnaryOperator extends AbstractUnaryOperator
     protected abstract int count(int content) throws OverflowException;
 
     @Override
-    public int evaluate(int x) throws OverflowException {
+    public int evaluate(final int x) throws OverflowException {
         return count(content.evaluate(x));
     }
 

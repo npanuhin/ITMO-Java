@@ -19,7 +19,7 @@ public class StringStreamer implements AbstractStreamer {
     }
 
     @Override
-    public void expect(char c) {
+    public void expect(final char c) {
         if (getChar() != c) {
             throw new IllegalArgumentException("Expected \"" + c + "\", got smth else");
         }
@@ -31,7 +31,7 @@ public class StringStreamer implements AbstractStreamer {
     }
 
     @Override
-    public boolean skipIfMatch(char c) {
+    public boolean skipIfMatch(final char c) {
         if (hasNextChar() && content.charAt(pos) == c) {
             pos++;
             return true;
@@ -40,7 +40,7 @@ public class StringStreamer implements AbstractStreamer {
     }
 
     @Override
-    public boolean skipIfMatch(String s) {
+    public boolean skipIfMatch(final String s) {
         if (content.length() < pos + s.length()) {
             return false;
         }

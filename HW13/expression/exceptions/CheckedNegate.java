@@ -16,7 +16,7 @@ public class CheckedNegate extends AbstractCheckedUnaryOperator {
     }
 
     @Override
-    protected int count(int a) throws OverflowException {
+    protected int count(final int a) throws OverflowException {
         if (a == Integer.MIN_VALUE) {
             throw new OverflowException(String.format("-%d", a));
         }

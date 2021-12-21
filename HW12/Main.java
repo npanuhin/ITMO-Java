@@ -8,12 +8,12 @@ import myclasses.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        ExpressionParser parser = new ExpressionParser();
+        final ExpressionParser parser = new ExpressionParser();
 
         try {
-            Scanner scanner = new Scanner(System.in);
+            final Scanner scanner = new Scanner(System.in);
 
-            AbstractExpression task = parser.parse(scanner.nextLine());
+            final AbstractExpression task = parser.parse(scanner.nextLine());
             scanner.skipLine();
             System.out.println(task.evaluate(scanner.nextInt()));
 
