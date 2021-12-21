@@ -33,6 +33,10 @@ public class Main {
                 System.out.println("division by zero");
             } catch (OverflowException e) {
                 System.out.println("overflow");
+            } catch (NumberFormatException e) {
+                System.out.println("WHAT ARE YOU DOING?! PLEASE ENTER A VALID INTEGER!!!");
+            } catch (ArithmeticException e) {
+                System.out.println("arithmetic exception");
             }
         } catch (IOException e) {
             System.out.println("Cannot open input stream: " + e.getMessage());
