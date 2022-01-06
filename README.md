@@ -1,6 +1,6 @@
 <h1 align="center">Решения домашних заданий к курсу<br>«Введение в программирование»</h1>
 
-> Тесты и модификации к домашним заданиям: [kgeorgiy.info/prog-intro-2021](https://www.kgeorgiy.info/git/geo/prog-intro-2021/) или зеркало [kgeorgiy/prog-intro-2021](https://github.com/kgeorgiy/prog-intro-2021)
+> Оригинальный репозиторий с тестами: [kgeorgiy.info/prog-intro-2021](https://www.kgeorgiy.info/git/geo/prog-intro-2021/) или зеркало [kgeorgiy/prog-intro-2021](https://github.com/kgeorgiy/prog-intro-2021)
 
 ### Оглавление:
 - [Домашнее задание 13. Обработка ошибок](#домашнее-задание-13-обработка-ошибок)
