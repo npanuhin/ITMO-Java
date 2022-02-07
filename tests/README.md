@@ -1,6 +1,7 @@
 # Тесты к курсу «Введение в программирование»
 
-[Условия домашних заданий](https://www.kgeorgiy.info/courses/prog-intro/homeworks.html)
+<!-- [Условия домашних заданий](https://www.kgeorgiy.info/courses/prog-intro/homeworks.html) -->
+[Условия домашних заданий](../README.md)
 
 
 ## Домашнее задание 13. Обработка ошибок
