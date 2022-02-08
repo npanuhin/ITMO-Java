@@ -52,33 +52,33 @@ def main():
     removeFromKgeorgiy("java-solutions")
     removeFromKgeorgiy("qf-solutions")
 
-    [copy(mkpath("MyClasses", file), ("java-solutions", "myclasses")) for file in listdir_java("MyClasses")]
+    [copy(("MyClasses", file), ("java-solutions", "myclasses")) for file in listdir_java("MyClasses")]
 
-    [copy(mkpath("HW2", file), ("java-solutions")) for file in listdir_java("HW2")]
+    [copy(("HW2", file), ("java-solutions")) for file in listdir_java("HW2")]
 
-    [copy(mkpath("HW3", file), ("java-solutions")) for file in listdir_java("HW3")]
+    [copy(("HW3", file), ("java-solutions")) for file in listdir_java("HW3")]
 
-    [copy(mkpath("HW4", file), ("java-solutions")) for file in listdir_java("HW4")]
+    [copy(("HW4", file), ("java-solutions")) for file in listdir_java("HW4")]
 
-    [copy(mkpath("HW5", file), ("java-solutions")) for file in listdir_java("HW5")]
+    [copy(("HW5", file), ("java-solutions")) for file in listdir_java("HW5")]
 
-    [copy(mkpath("HW6", file), ("java-solutions")) for file in listdir_java("HW6")]
+    [copy(("HW6", file), ("java-solutions")) for file in listdir_java("HW6")]
 
-    [copy(mkpath("HW7", "markup", file), ("java-solutions", "markup")) for file in listdir_java("HW7", "markup")]
+    [copy(("HW7", "markup", file), ("java-solutions", "markup")) for file in listdir_java("HW7", "markup")]
 
-    [copy(mkpath("HW8", file), ("qf-solutions", os.path.splitext(file)[0])) for file in listdir_java("HW8")]
+    [copy(("HW8", file), ("qf-solutions", os.path.splitext(file)[0])) for file in listdir_java("HW8")]
 
-    [copy(mkpath("HW9", "md2html", file), ("java-solutions", "md2html")) for file in listdir_java("HW9", "md2html")]
+    [copy(("HW9", "md2html", file), ("java-solutions", "md2html")) for file in listdir_java("HW9", "md2html")]
 
-    [copy(mkpath("HW10", "game", file), ("java-solutions", "game")) for file in listdir_java("HW10", "game")]
+    [copy(("HW10", "game", file), ("java-solutions", "game")) for file in listdir_java("HW10", "game")]
 
-    [copy(mkpath("HW11", "expression", file), ("java-solutions", "expression")) for file in listdir_java("HW11", "expression")]
+    [copy(("HW11", "expression", file), ("java-solutions", "expression")) for file in listdir_java("HW11", "expression")]
 
-    [copy(mkpath("HW12", "expression", "parser", file), ("java-solutions", "expression", "parser")) for file in listdir_java("HW12", "expression", "parser")]
+    [copy(("HW12", "expression", "parser", file), ("java-solutions", "expression", "parser")) for file in listdir_java("HW12", "expression", "parser")]
 
-    [copy(mkpath("HW13", "expression", "exceptions", file), ("java-solutions", "expression", "exceptions")) for file in listdir_java("HW13", "expression", "exceptions")]
+    [copy(("HW13", "expression", "exceptions", file), ("java-solutions", "expression", "exceptions")) for file in listdir_java("HW13", "expression", "exceptions")]
 
-    [copy(mkpath("HW13", "Main.java"), ("java-solutions"))]
+    [copy(("HW13", "Main.java"), ("java-solutions"))]
 
 
 if __name__ == "__main__":

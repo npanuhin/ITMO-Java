@@ -32,7 +32,7 @@ public class CheckedLog extends AbstractCheckedBinaryOperator {
 
     @Override
     protected int count(final int a, final int b) {
-        if (a <= 0 ) {
+        if (a <= 0) {
             throw new UnsupportedOperationException("Log(a, b) is not defined when a <= 0");
         }
 
