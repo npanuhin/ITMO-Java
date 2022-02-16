@@ -4,7 +4,7 @@ import java.util.List;
 
 
 public class Deletion extends AbstractContainer implements AbstractContainerItem {
-    
+
     public Deletion(List<AbstractContainerItem> items) {
         super(items);
     }

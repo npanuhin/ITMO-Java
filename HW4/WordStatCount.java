@@ -55,7 +55,7 @@ public class WordStatCount {
                     char character = Character.toLowerCase((char) read);
 
                     if (
-                        read != -1 && 
+                        read != -1 &&
                         (
                             Character.getType(character) == Character.DASH_PUNCTUATION ||
                             Character.isLetter(character) ||
@@ -115,7 +115,7 @@ public class WordStatCount {
             } finally {
                 output.close();
             }
-        
+
         } catch (IOException e) {
             System.out.println("Cannot write to output file: " + e.getMessage());
         }

@@ -100,7 +100,7 @@ public class E {
     public static void main(String[] args) throws IOException {
 
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        
+
         // Input:
         int n = nextInt(input), m = nextInt(input), v, u;
 
@@ -132,7 +132,7 @@ public class E {
 
         int[] pred = new int[n];
         PairDepthVertex p = findFurthest(graph, teamCities, pred, cityWithTeam);
- 
+
         int middleVertex = p.vertex;
         for (int i = 0; i < p.depth / 2; i++) {
             middleVertex = pred[middleVertex];

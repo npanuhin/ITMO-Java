@@ -138,7 +138,7 @@ class Scanner implements AutoCloseable {
         hasBufferedChar = false;
 
         if (
-            (bufferedChar == '\r' && canRead() && bufferedChar == '\n') || 
+            (bufferedChar == '\r' && canRead() && bufferedChar == '\n') ||
             (bufferedChar == '\n' && canRead() && bufferedChar == '\r')
         ) {
             hasBufferedChar = false;
@@ -151,7 +151,7 @@ class Scanner implements AutoCloseable {
         skipWhitespaces();
 
         // if (isEndOfLine()) {
-        //     throw new IOException("Empty input to generate String"); 
+        //     throw new IOException("Empty input to generate String");
         // }
 
         StringBuilder result = new StringBuilder();
@@ -215,7 +215,7 @@ public class B {
         for (int i = 0; i < n; i++) {
             output.write(Integer.valueOf(710 * (i - 25000)).toString());
             output.newLine();
-        } 
+        }
 
         output.close();
     }

@@ -51,7 +51,7 @@ public class ReverseSum2 {
         int[] columnSumm = new int[maxLineSize];  // Size = maxLineSize = max(line.size) <= n
 
         for (int lineIndex = 0; lineIndex < data.size(); lineIndex++) {
-            
+
             int lineSumm = 0;
 
             for (int numberIndex = 0; numberIndex < data.get(lineIndex).size; numberIndex++) {

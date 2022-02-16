@@ -141,7 +141,7 @@ class Scanner implements AutoCloseable {
         hasBufferedChar = false;
 
         if (
-            (bufferedChar == '\r' && canRead() && bufferedChar == '\n') || 
+            (bufferedChar == '\r' && canRead() && bufferedChar == '\n') ||
             (bufferedChar == '\n' && canRead() && bufferedChar == '\r')
         ) {
             hasBufferedChar = false;
@@ -154,7 +154,7 @@ class Scanner implements AutoCloseable {
         skipWhitespaces();
 
         // if (isEndOfLine()) {
-        //     throw new IOException("Empty input to generate String"); 
+        //     throw new IOException("Empty input to generate String");
         // }
 
         StringBuilder result = new StringBuilder();
@@ -205,7 +205,7 @@ public class J {
     public static void main(String[] args) throws IOException {
 
         Scanner input = new Scanner(System.in);
-        
+
         // Input:
         int n = input.nextInt();
         ArrayList<IntList> jogs = new ArrayList<IntList>();
@@ -229,7 +229,7 @@ public class J {
 
         for (int vertex = 0; vertex < n; vertex++) {
             for (int vertexThrough = 0; vertexThrough < n; vertexThrough++) {
-                
+
                 if (jogs.get(vertex).get(vertexThrough) == 0) {
                     output.write('0');
                 } else {

@@ -4,7 +4,7 @@ import java.util.List;
 
 
 public class Emphasis extends AbstractContainer implements AbstractContainerItem {
-    
+
     public Emphasis(List<AbstractContainerItem> items) {
         super(items);
     }

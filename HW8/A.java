@@ -138,7 +138,7 @@ class Scanner implements AutoCloseable {
         hasBufferedChar = false;
 
         if (
-            (bufferedChar == '\r' && canRead() && bufferedChar == '\n') || 
+            (bufferedChar == '\r' && canRead() && bufferedChar == '\n') ||
             (bufferedChar == '\n' && canRead() && bufferedChar == '\r')
         ) {
             hasBufferedChar = false;
@@ -151,7 +151,7 @@ class Scanner implements AutoCloseable {
         skipWhitespaces();
 
         // if (isEndOfLine()) {
-        //     throw new IOException("Empty input to generate String"); 
+        //     throw new IOException("Empty input to generate String");
         // }
 
         StringBuilder result = new StringBuilder();

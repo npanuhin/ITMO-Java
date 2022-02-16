@@ -50,7 +50,7 @@ public class WordStatCount {
             AbcScanner input = new AbcScanner(new FileInputStream(args[0]), new WordStatDelimiter());
 
             try {
-                
+
                 while (input.canRead()) {
                     while (input.hasNextInLine()) {
                         String word = input.nextString().toLowerCase();
@@ -102,7 +102,7 @@ public class WordStatCount {
             } finally {
                 output.close();
             }
-        
+
         } catch (IOException e) {
             System.out.println("Cannot write to output file: " + e.getMessage());
         }

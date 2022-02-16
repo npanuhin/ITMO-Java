@@ -4,7 +4,7 @@ import java.util.List;
 
 
 public class Insertion extends AbstractContainer implements AbstractContainerItem {
-    
+
     public Insertion(List<AbstractContainerItem> items) {
         super(items);
     }

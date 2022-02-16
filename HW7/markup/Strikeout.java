@@ -4,7 +4,7 @@ import java.util.List;
 
 
 public class Strikeout extends AbstractContainer implements AbstractContainerItem {
-    
+
     public Strikeout(List<AbstractContainerItem> items) {
         super(items);
     }

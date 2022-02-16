@@ -133,7 +133,7 @@ public class WsppSortedSecondG {
             } finally {
                 output.close();
             }
-        
+
         } catch (IOException e) {
             System.out.println("Cannot write to output file: " + e.getMessage());
         }

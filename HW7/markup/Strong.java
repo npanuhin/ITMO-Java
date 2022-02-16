@@ -4,7 +4,7 @@ import java.util.List;
 
 
 public class Strong extends AbstractContainer implements AbstractContainerItem {
-    
+
     public Strong(final List<AbstractContainerItem> items) {
         super(items);
     }

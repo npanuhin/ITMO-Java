@@ -14,7 +14,7 @@ public class AbcScanner extends Scanner {
     public AbcScanner(InputStream in, Delimiter delimiter) throws IOException {
         super(new InputStreamReader(in, "utf-8"), delimiter);
     }
-    
+
     @Override
     public int nextInt() throws IOException {
         String number = nextString();

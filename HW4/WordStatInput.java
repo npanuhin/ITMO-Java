@@ -84,7 +84,7 @@ public class WordStatInput {
             } finally {
                 output.close();
             }
-        
+
         } catch (FileNotFoundException e) {
             System.out.println("Cannot open file: " + e.getMessage());
 
